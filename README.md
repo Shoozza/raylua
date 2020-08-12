@@ -28,9 +28,9 @@ rl.SetTargetFPS(60)
 
 while not rl.WindowShouldClose() do
     rl.BeginDrawing()
-	rl.ClearBackground(rl.RAYWHITE)
-	rl.DrawText("Congrats! You created your first window!", 190, 200, 20, rl.LIGHTGRAY)
-	rl.EndDrawing()
+    rl.ClearBackground(rl.RAYWHITE)
+    rl.DrawText("Congrats! You created your first window!", 190, 200, 20, rl.LIGHTGRAY)
+    rl.EndDrawing()
 end
 
 rl.CloseWindow()
