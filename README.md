@@ -1,4 +1,4 @@
-# rayjit
+# raylib-luajit
 
 Modern and updated LuaJIT bindings for raylib,Written by me from scratch.
 
