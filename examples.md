@@ -1,4 +1,4 @@
-# Examples binded to LuaJIT via rayjit
+# Examples binded to LuaJIT via raylib-luajit
 
 - [core_basic_window](https://github.com/Rabios/rayjit/blob/master/core_basic_window.lua)
 <img src="https://github.com/Rabios/rayjit/blob/master/core_basic_window.png">
