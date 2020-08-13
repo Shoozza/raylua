@@ -43,8 +43,7 @@ For examples that binded see [here](https://github.com/Rabios/rayjit/blob/master
 ### NOTES
 
 1. This is a direct bindings of the original C version,It implements the same content.
-2. Custom memory allocation removed.
-3. Hacks and fallbacks of raylib 2 still implemented,You can run raylib 2 code if you use raylib 3.
+2. Hacks and fallbacks of raylib 2 still implemented,You can run raylib 2 code if you use raylib 3.
 
 > And i didn't copy-pasted from any gist,Even that gist made by Alexander Matz,All bindings were written by me.
 
