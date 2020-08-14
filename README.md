@@ -8,6 +8,8 @@ Modern and updated LuaJIT bindings for raylib,Written by me from scratch.
 
 1. raylib
 2. RLGL
+3. raylib easings (easings.h)
+4. rlights (raylib.lights)
 
 ### Supports
 
@@ -64,4 +66,3 @@ See [`LICENSE.txt`](https://github.com/Rabios/rayjit/blob/master/LICENSE.txt) fo
 - [ ] raymath bindings
 - [ ] physac bindings
 - [ ] raygui bindings
-
