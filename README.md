@@ -10,6 +10,7 @@ Modern and updated LuaJIT bindings for raylib,Written by me from scratch.
 2. RLGL
 3. raylib easings (easings.h)
 4. rlights (raylib.lights)
+5. raymath
 
 ### Supports
 
@@ -42,12 +43,13 @@ rl.CloseWindow()
 
 For examples that binded see [here](https://github.com/Rabios/rayjit/blob/master/examples/examples.md)
 
-> NOTES: RLGL functions also called from `rl` variable as same as calling raylib functions.
+> All contained functions and variables called from `rl`.
 
 ### NOTES
 
 1. This is a direct bindings of the original C version,It implements the same content.
 2. Hacks and fallbacks of raylib 2 still implemented,You can run raylib 2 code if you use raylib 3.
+3. To use SpriteFont from raylib 2 use `rl.SpriteFont(src)` font and not `ffi.new("SpriteFont", src)` cause it will give error.
 
 > And i didn't copy-pasted from any gist,Even that gist made by Alexander Matz,All bindings were written by me.
 
@@ -63,6 +65,5 @@ See [`LICENSE.txt`](https://github.com/Rabios/rayjit/blob/master/LICENSE.txt) fo
 
 ### TODO
 
-- [ ] raymath bindings
 - [ ] physac bindings
 - [ ] raygui bindings

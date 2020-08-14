@@ -1381,7 +1381,6 @@ void StopAudioStream(AudioStream stream);                       // Stop audio st
 void SetAudioStreamVolume(AudioStream stream, float volume);    // Set volume for audio stream (1.0 is max level)
 void SetAudioStreamPitch(AudioStream stream, float pitch);      // Set pitch for audio stream (1.0 is base level)
 void SetAudioStreamBufferSizeDefault(int size);                 // Default size for new audio streams
-
 ]])
 
 -- rlgl.h
@@ -1525,9 +1524,156 @@ void rlUpdateMesh(Mesh mesh, int buffer, int count);                // Update ve
 void rlUpdateMeshAt(Mesh mesh, int buffer, int count, int index);   // Update vertex or index data on GPU, at index
 void rlDrawMesh(Mesh mesh, Material material, Matrix transform);    // Draw a 3d mesh with material and transform
 void rlUnloadMesh(Mesh mesh);                                       // Unload mesh data from CPU and GPU
+]])
+
+-- raymath.h
+ffi.cdef([[
+typedef struct float3 { float v[3]; } float3;
+typedef struct float16 { float v[16]; } float16;
+
+float Clamp(float value, float min, float max);
+float Lerp(float start, float end, float amount);
+float Normalize(float value, float start, float end);
+float Remap(float value, float inputStart, float inputEnd, float outputStart, float outputEnd);
+Vector2 Vector2Zero(void);
+Vector2 Vector2One(void);
+Vector2 Vector2Add(Vector2 v1, Vector2 v2);
+Vector2 Vector2AddValue(Vector2 v, float add);
+Vector2 Vector2Subtract(Vector2 v1, Vector2 v2);
+Vector2 Vector2SubtractValue(Vector2 v, float sub);
+float Vector2Length(Vector2 v);
+float Vector2LengthSqr(Vector2 v);
+float Vector2DotProduct(Vector2 v1, Vector2 v2);
+float Vector2Distance(Vector2 v1, Vector2 v2);
+float Vector2Angle(Vector2 v1, Vector2 v2);
+Vector2 Vector2Scale(Vector2 v, float scale);
+Vector2 Vector2Multiply(Vector2 v1, Vector2 v2);
+Vector2 Vector2Negate(Vector2 v);
+Vector2 Vector2Divide(Vector2 v1, Vector2 v2);
+Vector2 Vector2Normalize(Vector2 v);
+Vector2 Vector2Lerp(Vector2 v1, Vector2 v2, float amount);
+Vector2 Vector2Rotate(Vector2 v, float degs);
+Vector2 Vector2MoveTowards(Vector2 v, Vector2 target, float maxDistance);
+Vector3 Vector3Zero(void);
+Vector3 Vector3One(void);
+Vector3 Vector3Add(Vector3 v1, Vector3 v2);
+Vector3 Vector3AddValue(Vector3 v, float add);
+Vector3 Vector3Subtract(Vector3 v1, Vector3 v2);
+Vector3 Vector3SubtractValue(Vector3 v, float sub);
+Vector3 Vector3Scale(Vector3 v, float scalar);
+Vector3 Vector3Multiply(Vector3 v1, Vector3 v2);
+Vector3 Vector3CrossProduct(Vector3 v1, Vector3 v2);
+Vector3 Vector3Perpendicular(Vector3 v);
+float Vector3Length(const Vector3 v);
+float Vector3LengthSqr(const Vector3 v);
+float Vector3DotProduct(Vector3 v1, Vector3 v2);
+float Vector3Distance(Vector3 v1, Vector3 v2);
+Vector3 Vector3Negate(Vector3 v);
+Vector3 Vector3Divide(Vector3 v1, Vector3 v2);
+Vector3 Vector3Normalize(Vector3 v);
+void Vector3OrthoNormalize(Vector3 *v1, Vector3 *v2);
+Vector3 Vector3Transform(Vector3 v, Matrix mat);
+Vector3 Vector3RotateByQuaternion(Vector3 v, Quaternion q);
+Vector3 Vector3Lerp(Vector3 v1, Vector3 v2, float amount);
+Vector3 Vector3Reflect(Vector3 v, Vector3 normal);
+Vector3 Vector3Min(Vector3 v1, Vector3 v2);
+Vector3 Vector3Max(Vector3 v1, Vector3 v2);
+Vector3 Vector3Barycenter(Vector3 p, Vector3 a, Vector3 b, Vector3 c);
+float3 Vector3ToFloatV(Vector3 v);
+float MatrixDeterminant(Matrix mat);
+float MatrixTrace(Matrix mat);
+Matrix MatrixTranspose(Matrix mat);
+Matrix MatrixInvert(Matrix mat);
+Matrix MatrixNormalize(Matrix mat);
+Matrix MatrixIdentity(void);
+Matrix MatrixAdd(Matrix left, Matrix right);
+Matrix MatrixSubtract(Matrix left, Matrix right);
+Matrix MatrixTranslate(float x, float y, float z);
+Matrix MatrixRotate(Vector3 axis, float angle);
+Matrix MatrixRotateXYZ(Vector3 ang);
+Matrix MatrixRotateX(float angle);
+Matrix MatrixRotateY(float angle);
+Matrix MatrixRotateZ(float angle);
+Matrix MatrixScale(float x, float y, float z);
+Matrix MatrixMultiply(Matrix left, Matrix right);
+Matrix MatrixFrustum(double left, double right, double bottom, double top, double near, double far);
+Matrix MatrixPerspective(double fovy, double aspect, double near, double far);
+Matrix MatrixOrtho(double left, double right, double bottom, double top, double near, double far);
+Matrix MatrixLookAt(Vector3 eye, Vector3 target, Vector3 up);
+float16 MatrixToFloatV(Matrix mat);
+Quaternion QuaternionAdd(Quaternion q1, Quaternion q2);
+Quaternion QuaternionAddValue(Quaternion q, float add);
+Quaternion QuaternionSubtract(Quaternion q1, Quaternion q2);
+Quaternion QuaternionSubtractValue(Quaternion q, float sub);
+Quaternion QuaternionIdentity(void);
+float QuaternionLength(Quaternion q);
+Quaternion QuaternionNormalize(Quaternion q);
+Quaternion QuaternionInvert(Quaternion q);
+Quaternion QuaternionMultiply(Quaternion q1, Quaternion q2);
+Quaternion QuaternionScale(Quaternion q, float mul);
+Quaternion QuaternionDivide(Quaternion q1, Quaternion q2);
+Quaternion QuaternionLerp(Quaternion q1, Quaternion q2, float amount);
+Quaternion QuaternionNlerp(Quaternion q1, Quaternion q2, float amount);
+Quaternion QuaternionSlerp(Quaternion q1, Quaternion q2, float amount);
+Quaternion QuaternionFromVector3ToVector3(Vector3 from, Vector3 to);
+Quaternion QuaternionFromMatrix(Matrix mat);
+Matrix QuaternionToMatrix(Quaternion q);
+Quaternion QuaternionFromAxisAngle(Vector3 axis, float angle);
+void QuaternionToAxisAngle(Quaternion q, Vector3 *outAxis, float *outAngle);
+Quaternion QuaternionFromEuler(float roll, float pitch, float yaw);
+Vector3 QuaternionToEuler(Quaternion q);
+Quaternion QuaternionTransform(Quaternion q, Matrix mat);
 
 ]])
 
+-- easings.h
+ffi.cdef([[
+// Linear Easing functions
+float EaseLinearNone(float t, float b, float c, float d);
+float EaseLinearIn(float t, float b, float c, float d);
+float EaseLinearOut(float t, float b, float c, float d);
+float EaseLinearInOut(float t,float b, float c, float d);
+
+// Sine Easing functions
+float EaseSineIn(float t, float b, float c, float d);
+float EaseSineOut(float t, float b, float c, float d);
+float EaseSineInOut(float t, float b, float c, float d);
+
+// Circular Easing functions
+float EaseCircIn(float t, float b, float c, float d);
+float EaseCircOut(float t, float b, float c, float d);
+float EaseCircInOut(float t, float b, float c, float d);
+
+// Cubic Easing functions
+float EaseCubicIn(float t, float b, float c, float d);
+float EaseCubicOut(float t, float b, float c, float d);
+float EaseCubicInOut(float t, float b, float c, float d);
+
+// Quadratic Easing functions
+float EaseQuadIn(float t, float b, float c, float d);
+float EaseQuadOut(float t, float b, float c, float d);
+float EaseQuadInOut(float t, float b, float c, float d);
+
+// Exponential Easing functions
+float EaseExpoIn(float t, float b, float c, float d);
+float EaseExpoOut(float t, float b, float c, float d);
+float EaseExpoInOut(float t, float b, float c, float d);
+
+// Back Easing functions
+float EaseBackIn(float t, float b, float c, float d);
+float EaseBackOut(float t, float b, float c, float d);
+float EaseBackInOut(float t, float b, float c, float d);
+
+// Bounce Easing functions
+float EaseBounceIn(float t, float b, float c, float d);
+float EaseBounceOut(float t, float b, float c, float d);
+float EaseBounceInOut(float t, float b, float c, float d);
+
+// Elastic Easing functions
+float EaseElasticIn(float t, float b, float c, float d);
+float EaseElasticOut(float t, float b, float c, float d);
+float EaseElasticInOut(float t, float b, float c, float d);
+]])
 
 raylib = ffi.load(lib)
 mt = { __index = raylib }
@@ -1590,173 +1736,6 @@ end
 rl.RL_CULL_DISTANCE_NEAR           = 0.01      -- Default near cull distance
 rl.RL_CULL_DISTANCE_FAR            = 1000.0    -- Default far cull distance
 
--- easings.h
--- Linear Easing functions
-rl.EaseLinearNone = function(t, b, c, d) return (c * t / d + b) end
-rl.EaseLinearIn = function(t, b, c, d) return (c * t / d + b) end
-rl.EaseLinearOut = function(t, b, c, d) return (c * t / d + b) end
-rl.EaseLinearInOut = function(t,b, c, d) return (c * t / d + b) end
-
--- Sine Easing functions
-rl.EaseSineIn = function(t, b, c, d) return (-c * math.cos(t / d * (math.pi / 2)) + c + b) end
-rl.EaseSineOut = function(t, b, c, d) return (c * math.sin(t / d * (math.pi / 2)) + b) end
-rl.EaseSineInOut = function(t, b, c, d) return (-c / 2 * (math.cos(math.pi * t / d) - 1) + b) end
-
--- Circular Easing functions
-rl.EaseCircIn = function(t, b, c, d)
-    t = t / d
-    return (-c * (math.sqrt(1 - t * t) - 1) + b)
-end
-
-rl.EaseCircOut = function(t, b, c, d)
-    t = t / d - 1
-    return (c * math.sqrt(1 - t * t) + b)
-end
-
-rl.EaseCircInOut = function(t, b, c, d)
-    if t / (d / 2) < 1 then return (-c / 2 * (math.sqrt(1 - t * t) - 1) + b) end
-    t = t - 2
-    return (c / 2 * (math.sqrt(1 - t * t) + 1) + b)
-end
-
--- Cubic Easing functions
-rl.EaseCubicIn = function(t, b, c, d)
-    t = t / d
-    return (c * t * t * t + b)
-end
-
-rl.EaseCubicOut = function(t, b, c, d)
-    t = t / d - 1
-    return (c * (t * t * t + 1) + b)
-end
-
-rl.EaseCubicInOut = function(t, b, c, d) 
-    if t / (d / 2) < 1 then return (c / 2 * t * t * t + b) end
-    t = t - 2
-    return (c / 2 * (t * t * t + 2) + b)
-end
-
--- Quadratic Easing functions
-rl.EaseQuadIn = function(t, b, c, d)
-    t = t / d
-    return (c * t * t + b)
-end
-
-rl.EaseQuadOut = function(t, b, c, d)
-    t = t / d
-    return (-c * t * (t - 2) + b)
-end
-
-rl.EaseQuadInOut = function(t, b, c, d) 
-    if t / (d / 2) < 1 then return (((c / 2) * (t * t)) + b) end
-    t = t - 1
-    return (-c / 2 * (((t - 2) * t) - 1) + b)
-end
-
--- Exponential Easing functions
-rl.EaseExpoIn = function(t, b, c, d)
-    if t == 0 then
-        return b
-    else
-        return c * math.pow(2, 10 * (t / d - 1)) + b
-    end
-end
-
-rl.EaseExpoOut = function(t, b, c, d)
-    if t == d then return b + c else return c * (-math.pow(2, -10 * t / d) + 1) + b end
-end
-
-rl.EaseExpoInOut = function(t, b, c, d)
-    if t == 0 then return b end
-    if t == d then return b + c end
-    if (t / (d / 2) < 1) then return c / 2 * math.pow(2, 10 * (t - 1)) + b end
-    return c / 2 * (-math.pow(2, -10 * t) + 2) + b
-end
-
--- Back Easing functions
-rl.EaseBackIn = function(t, b, c, d) 
-    s = 1.70158
-    postFix = (t / d)
-    return c * (postFix) * t * ((s + 1) * t - s) + b
-end
-
-rl.EaseBackOut = function(t, b, c, d)
-    s = 1.70158
-    t = (t / d) - 1
-    return c * (t * t * ((s + 1) * t + s) + 1) + b
-end
-
-rl.EaseBackInOut = function(t, b, c, d)
-    s = 1.70158
-    if t / (d / 2) < 1 then 
-        s = s * 1.525
-        return c / 2 * (t * t * ((s + 1) * t - s)) + b
-    end
-    postFix = t - 2
-    s = s * 1.525
-    return c / 2 * ((postFix) * t * ((s + 1) * t + s) + 2) + b
-end
-
--- Bounce Easing functions
-rl.EaseBounceOut = function(t, b, c, d)
-    if t / d < (1 / 2.75) then 
-        return c * (7.5625 * t * t) + b
-    elseif t < 2 / 2.75 then 
-        postFix = t - 1.5 / 2.75
-        return c * (7.5625 * (postFix) * t + 0.75) + b
-    elseif t < 2.5 / 2.75 then 
-        postFix = t - 2.25 / 2.75
-        return c * (7.5625 * (postFix) * t + 0.9375) + b
-    else 
-        postFix = t - (2.625 / 2.75)
-        return c * (7.5625 * (postFix) * t + 0.984375) + b
-    end
-end
-
-rl.EaseBounceIn = function(t, b, c, d) return c - EaseBounceOut(d - t, 0, c, d) + b end
-rl.EaseBounceInOut = function(t, b, c, d) 
-    if t < d / 2 then
-        return EaseBounceIn(t * 2, 0, c, d) * 0.5 + b
-    else
-        return EaseBounceOut(t * 2 - d, 0, c, d) * 0.5 + c * 0.5 + b
-    end
-end
-
--- Elastic Easing functions
-rl.EaseElasticIn = function(t, b, c, d) 
-    if t == 0 then return b end
-    if t / d == 1 then return b + c end
-    p = d * 0.3
-    a = c 
-    s = p / 4
-    postFix = a * math.pow(2, 10 * (t - 1))
-    return -(postFix * math.sin((t * d - s) * (2 * math.pi) / p)) + b
-end
-
-rl.EaseElasticOut = function(t, b, c, d)
-    if t == 0 then return b end
-    if t / d == 1 then return b + c end
-    p = d * 0.3
-    a = c 
-    s = p / 4
-    return a * math.pow(2, -10 * t) * math.sin((t * d - s) * (2 * math.pi) / p) + c + b    
-end
-
-rl.EaseElasticInOut = function(t, b, c, d)
-    if t == 0 then return b end
-    if t / (d / 2) == 2 then return b + c end
-    p = d * (0.3 * 1.5)
-    a = c
-    s = p / 4
-    if t < 1 then
-        postFix = a * math.pow(2, 10 * ( t - 1))
-        return -0.5 * (postFix * math.sin((t * d - s) * (2 * math.pi) / p)) + b
-    end
-    postFix = a * math.pow(2, -10 * (t - 1))
-    return postFix * math.sin((t * d - s) * (2 * math.pi) / p) * 0.5 + c + b
-end
-
-
 -- rlights.h
 ffi.cdef([[
 //----------------------------------------------------------------------------------
@@ -1779,6 +1758,9 @@ typedef struct {
     int targetLoc;
     int colorLoc;
 } Light;
+
+void CreateLight(int type, Vector3 pos, Vector3 targ, Color color, Shader shader);         // Defines a light and get locations from PBR shader
+void UpdateLightValues(Shader shader, Light light);                                        // Send to PBR shader light values
 ]])
 
 rl.MAX_LIGHTS        = 4        -- Max lights supported by shader
@@ -1841,7 +1823,5 @@ rl.UpdateLightValues = function(shader, light)
     rl.current_light_diff = ffi.new("float[4]", light.color.r / 255.0, light.color.g / 255.0, light.color.b / 255.0, light.color.a / 255.0)
     rl.SetShaderValue(shader, light.colorLoc, rl.current_light_diff, rl.UNIFORM_VEC4)
 end
-
--- raymath.h
 
 return rl
