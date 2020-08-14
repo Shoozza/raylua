@@ -3,8 +3,7 @@
 
 ffi = require("ffi")   -- For bindings,We will use LuaJIT FFI
 jit = require("jit")   -- JIT for getting OS and architecture to load suitable library file
-math = require("math") -- Math library
-lib = ""               -- Keep this empty so it changed when this file loaded/required directly
+local lib = ""               -- Keep this empty so it changed when this file loaded/required directly
 
 -- Get OS and architecture to set library file to use
 if jit.os == "Windows" then
