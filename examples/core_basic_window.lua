@@ -13,4 +13,4 @@ while not rl.WindowShouldClose() do
 	rl.EndDrawing()
 end
 
-rl.CloseWindow()
+rl.CloseWindow() 
