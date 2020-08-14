@@ -38,7 +38,7 @@ end
 rl.CloseWindow()
 ```
 
-For examples that binded see [here](https://github.com/Rabios/rayjit/blob/master/examples.md)
+For examples that binded see [here](https://github.com/Rabios/rayjit/blob/master/examples/examples.md)
 
 > NOTES: RLGL functions also called from `rl` variable as same as calling raylib functions.
 
