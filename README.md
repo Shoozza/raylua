@@ -1,4 +1,7 @@
 # raylua
+
+<img src="https://github.com/Rabios/raylua/blob/master/raylua.png">
+
 Modern and updated LuaJIT bindings for raylib,Written by me from scratch.
 
 ### Contains
