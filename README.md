@@ -62,4 +62,6 @@ See [`LICENSE.txt`](https://github.com/Rabios/rayjit/blob/master/LICENSE.txt) fo
 ### SOON
 
 - [ ] raymath bindings
+- [ ] easings bindings
 - [ ] physac bindings
+- [ ] raygui bindings
