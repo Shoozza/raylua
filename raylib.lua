@@ -214,6 +214,8 @@ typedef struct Font {
     CharInfo *chars;        // Characters info data
 } Font;
 
+typedef Font SpriteFont; // SpriteFont type fallback, defaults to Font
+
 // Camera type, defines a camera position/orientation in 3d space
 typedef struct Camera3D {
     Vector3 position;       // Camera position
@@ -1726,11 +1728,6 @@ rl.ShowWindow  = rl.UnhideWindow
 rl.LoadText    = rl.LoadFileText
 -- Fade        = rl.ColorAlpha
 
--- SpriteFont
-function rl.SpriteFont(...)
-  return ffi.new("Font", ...)
-end
-
 -- RLGL stuff
 rl.RL_CULL_DISTANCE_NEAR           = 0.01      -- Default near cull distance
 rl.RL_CULL_DISTANCE_FAR            = 1000.0    -- Default far cull distance
@@ -1821,6 +1818,131 @@ rl.UpdateLightValues = function(shader, light)
   -- Send to shader light color values
   rl.current_light_diff = ffi.new("float[4]", light.color.r / 255.0, light.color.g / 255.0, light.color.b / 255.0, light.color.a / 255.0)
   rl.SetShaderValue(shader, light.colorLoc, rl.current_light_diff, rl.UNIFORM_VEC4)
+end
+
+-- Types
+rl.Vector2 = function(...)
+  return ffi.new("Vector2", ...)
+end
+
+rl.Vector3 = function(...)
+  return ffi.new("Vector3", ...)
+end
+
+rl.Vector4 = function(...)
+  return ffi.new("Vector4", ...)
+end
+
+rl.Quaternion = function(...)
+  return ffi.new("Quaternion", ...)
+end
+
+rl.Color = function(...)
+  return ffi.new("Color", ...)
+end
+
+rl.Matrix = function(...)
+  return ffi.new("Matrix", ...)
+end
+
+rl.Rectangle = function(...)
+  return ffi.new("Rectangle", ...)
+end
+
+rl.BoundingBox = function(...)
+  return ffi.new("BoundingBox", ...)
+end
+
+rl.Image = function(...)
+  return ffi.new("Image", ...)
+end
+
+rl.Texture = function(...)
+  return ffi.new("Texture", ...)
+end
+
+rl.RenderTexture = function(...)
+  return ffi.new("RenderTexture", ...)
+end
+
+rl.NPatchInfo = function(...)
+  return ffi.new("NPatchInfo", ...)
+end
+
+rl.CharInfo = function(...)
+  return ffi.new("CharInfo", ...)
+end
+
+rl.Font = function(...)
+  return ffi.new("Font", ...)
+end
+
+function rl.SpriteFont(...)
+  return ffi.new("SpriteFont", ...)
+end
+
+rl.Camera = function(...)
+  return ffi.new("Camera", ...)
+end
+
+rl.Camera3D = function(...)
+  return ffi.new("Camera3D", ...)
+end
+
+rl.Mesh = function(...)
+  return ffi.new("Mesh", ...)
+end
+
+rl.MaterialMap = function(...)
+  return ffi.new("MaterialMap", ...)
+end
+
+rl.Material = function(...)
+  return ffi.new("Material", ...)
+end
+
+rl.Model = function(...)
+  return ffi.new("Model", ...)
+end
+
+rl.Transform = function(...)
+  return ffi.new("Transform", ...)
+end
+
+rl.BoneInfo = function(...)
+  return ffi.new("BoneInfo", ...)
+end
+
+rl.ModelAnimation = function(...)
+  return ffi.new("ModelAnimation", ...)
+end
+
+rl.Ray = function(...)
+  return ffi.new("Ray", ...)
+end
+
+rl.RayHitInfo = function(...)
+  return ffi.new("RayHitInfo", ...)
+end
+
+rl.Wave = function(...)
+  return ffi.new("Wave", ...)
+end
+
+rl.Sound = function(...)
+  return ffi.new("Sound", ...)
+end
+
+rl.Music = function(...)
+  return ffi.new("Music", ...)
+end
+
+rl.AudioStream = function(...)
+  return ffi.new("AudioStream", ...)
+end
+
+rl.VrDeviceInfo = function(...)
+  return ffi.new("VrDeviceInfo", ...)
 end
 
 return rl
