@@ -14,7 +14,7 @@ Modern and updated LuaJIT bindings for raylib,Written by me from scratch.
 
 ### Example
 
-Link `raylib.lua` (Via dofile),Then start coding!
+Link `raylib.lua` (Via dofile or require),Then start coding!
 
 ```lua
 dofile("raylib.lua")
