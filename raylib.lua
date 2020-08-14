@@ -1,25 +1,25 @@
 -- Written by Rabia Alhaffar in 12/August/2020
 -- raylua,Modern LuaJIT bindings for raylib
 
-ffi = require("ffi")         -- For bindings,We will use LuaJIT FFI
+ffi = require("ffi")   -- For bindings,We will use LuaJIT FFI
 jit = require("jit")   -- JIT for getting OS and architecture to load suitable library file
-local lib = ""               -- Keep this empty so it changed when this file loaded/required directly
+local lib = ""         -- Keep this empty so it changed when this file loaded/required directly
 
 -- Get OS and architecture to set library file to use
 if jit.os == "Windows" then
   if jit.arch == "x64" then
     lib = "libraylib64.dll"
-	else
+  else
     lib = "libraylib32.dll"
-	end
+  end
 elseif jit.os == "OSX" then
   lib = "libraylib.3.0.0.dylib"
 else
   if jit.arch == "x64" then
     lib = "libraylib64.so"
-	else
+  else
     lib = "libraylib32.so"
-	end
+  end
 end
 
 -- raylib.h
