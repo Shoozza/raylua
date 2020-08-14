@@ -1,7 +1,7 @@
 -- Written by Rabia Alhaffar in 12/August/2020
 -- raylua,Modern LuaJIT bindings for raylib
 
-ffi = require("ffi")   -- For bindings,We will use LuaJIT FFI
+ffi = require("ffi")         -- For bindings,We will use LuaJIT FFI
 jit = require("jit")   -- JIT for getting OS and architecture to load suitable library file
 local lib = ""               -- Keep this empty so it changed when this file loaded/required directly
 
