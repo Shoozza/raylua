@@ -59,10 +59,8 @@ For examples that binded see [here](https://github.com/Rabios/rayjit/blob/master
 
 See [`LICENSE.txt`](https://github.com/Rabios/rayjit/blob/master/LICENSE.txt) for bindings license and [`LICENSES.txt`](https://github.com/Rabios/rayjit/blob/master/LICENSES.txt) for third party licenses.
 
-### SOON
+### TODO
 
-- [x] easings bindings
-- [x] rlights bindings
 - [ ] raymath bindings
 - [ ] physac bindings
 - [ ] raygui bindings
