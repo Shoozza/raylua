@@ -17,10 +17,10 @@ Modern and updated LuaJIT bindings for raylib,Written by me from scratch.
 
 ### Example
 
-Link `raylib.lua` (Via dofile or require),Then start coding!
+Link `raylib.lua` (Via require or dofile),Then start coding!
 
 ```lua
-dofile("raylib.lua")
+local rl = require("raylib")
 
 local screenWidth = 800
 local screenHeight = 450
