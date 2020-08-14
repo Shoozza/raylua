@@ -7,18 +7,18 @@ local lib = ""               -- Keep this empty so it changed when this file loa
 
 -- Get OS and architecture to set library file to use
 if jit.os == "Windows" then
-    if jit.arch == "x64" then
-	    lib = "libraylib64.dll"
+  if jit.arch == "x64" then
+    lib = "libraylib64.dll"
 	else
-	    lib = "libraylib32.dll"
+    lib = "libraylib32.dll"
 	end
 elseif jit.os == "OSX" then
-    lib = "libraylib.3.0.0.dylib"
+  lib = "libraylib.3.0.0.dylib"
 else
-    if jit.arch == "x64" then
-	    lib = "libraylib64.so"
+  if jit.arch == "x64" then
+    lib = "libraylib64.so"
 	else
-	    lib = "libraylib32.so"
+    lib = "libraylib32.so"
 	end
 end
 
@@ -1728,7 +1728,7 @@ rl.LoadText    = rl.LoadFileText
 
 -- SpriteFont
 function rl.SpriteFont(...)
-    return ffi.new("Font", ...)
+  return ffi.new("Font", ...)
 end
 
 -- RLGL stuff
@@ -1771,56 +1771,56 @@ rl.lightsCount = 0 -- Current amount of created lights
 
 -- Defines a light and get locations from PBR shader
 rl.CreateLight = function(type, pos, targ, color, shader)
-    light = ffi.new("Light")
-    if rl.lightsCount < rl.MAX_LIGHTS then
-        light.enabled = true
-        light.type = type
-        light.position = pos
-        light.target = targ
-        light.color = color
+  light = ffi.new("Light")
+  if rl.lightsCount < rl.MAX_LIGHTS then
+    light.enabled = true
+    light.type = type
+    light.position = pos
+    light.target = targ
+    light.color = color
 
-        enabledName = "lights[x].enabled\0"
-        typeName = "lights[x].type\0"
-        posName = "lights[x].position\0"
-        targetName = "lights[x].target\0"
-        colorName = "lights[x].color\0"
+    enabledName = "lights[x].enabled\0"
+    typeName = "lights[x].type\0"
+    posName = "lights[x].position\0"
+    targetName = "lights[x].target\0"
+    colorName = "lights[x].color\0"
         
-        enabledName:gsub("0"..lightsCount)
-        typeName:gsub("0"..lightsCount)
-        posName:gsub("0"..lightsCount)
-        targetName:gsub("0"..lightsCount)
-        colorName:gsub("0"..lightsCount)
+    enabledName:gsub("0"..lightsCount)
+    typeName:gsub("0"..lightsCount)
+    posName:gsub("0"..lightsCount)
+    targetName:gsub("0"..lightsCount)
+    colorName:gsub("0"..lightsCount)
         
-        light.enabledLoc = rl.GetShaderLocation(shader, enabledName)
-        light.typeLoc = rl.GetShaderLocation(shader, typeName)
-        light.posLoc = rl.GetShaderLocation(shader, posName)
-        light.targetLoc = rl.GetShaderLocation(shader, targetName)
-        light.colorLoc = rl.GetShaderLocation(shader, colorName)
+    light.enabledLoc = rl.GetShaderLocation(shader, enabledName)
+    light.typeLoc = rl.GetShaderLocation(shader, typeName)
+    light.posLoc = rl.GetShaderLocation(shader, posName)
+    light.targetLoc = rl.GetShaderLocation(shader, targetName)
+    light.colorLoc = rl.GetShaderLocation(shader, colorName)
 
-        rl.UpdateLightValues(shader, light)
+    rl.UpdateLightValues(shader, light)
 
-        rl.lights[rl.lightsCount] = light
-        rl.lightsCount = rl.lightsCount + 1
-    end
+    rl.lights[rl.lightsCount] = light
+    rl.lightsCount = rl.lightsCount + 1
+  end
 end
 
 -- Send to PBR shader light values
 rl.UpdateLightValues = function(shader, light)
-    -- Send to shader light enabled state and type
-    rl.SetShaderValue(shader, light.enabledLoc, light.enabled, rl.UNIFORM_INT)
-    rl.SetShaderValue(shader, light.typeLoc, light.type, rl.UNIFORM_INT)
+  -- Send to shader light enabled state and type
+  rl.SetShaderValue(shader, light.enabledLoc, light.enabled, rl.UNIFORM_INT)
+  rl.SetShaderValue(shader, light.typeLoc, light.type, rl.UNIFORM_INT)
 
-    -- Send to shader light position values
-    rl.current_light_position = ffi.new("float[3]", light.position.x, light.position.y, light.position.z)
-    rl.SetShaderValue(shader, light.posLoc, rl.current_light_position, rl.UNIFORM_VEC3)
+  -- Send to shader light position values
+  rl.current_light_position = ffi.new("float[3]", light.position.x, light.position.y, light.position.z)
+  rl.SetShaderValue(shader, light.posLoc, rl.current_light_position, rl.UNIFORM_VEC3)
 
-    -- Send to shader light target position values
-    rl.current_light_target = ffi.new("float[3]", light.target.x, light.target.y, light.target.z)
-    rl.SetShaderValue(shader, light.targetLoc, rl.current_light_target, rl.UNIFORM_VEC3)
+  -- Send to shader light target position values
+  rl.current_light_target = ffi.new("float[3]", light.target.x, light.target.y, light.target.z)
+  rl.SetShaderValue(shader, light.targetLoc, rl.current_light_target, rl.UNIFORM_VEC3)
 
-    -- Send to shader light color values
-    rl.current_light_diff = ffi.new("float[4]", light.color.r / 255.0, light.color.g / 255.0, light.color.b / 255.0, light.color.a / 255.0)
-    rl.SetShaderValue(shader, light.colorLoc, rl.current_light_diff, rl.UNIFORM_VEC4)
+  -- Send to shader light color values
+  rl.current_light_diff = ffi.new("float[4]", light.color.r / 255.0, light.color.g / 255.0, light.color.b / 255.0, light.color.a / 255.0)
+  rl.SetShaderValue(shader, light.colorLoc, rl.current_light_diff, rl.UNIFORM_VEC4)
 end
 
 return rl
