@@ -1,9 +1,10 @@
 -- Written by Rabia Alhaffar in 12/August/2020
 -- raylua,Modern LuaJIT bindings for raylib
 
-ffi = require("ffi")  -- For bindings,We will use LuaJIT FFI
-jit = require("jit")  -- JIT for getting OS and architecture to load suitable library file
-lib = ""              -- Keep this empty so it changed when this file loaded/required directly
+ffi = require("ffi")   -- For bindings,We will use LuaJIT FFI
+jit = require("jit")   -- JIT for getting OS and architecture to load suitable library file
+math = require("math") -- Math library
+lib = ""               -- Keep this empty so it changed when this file loaded/required directly
 
 -- Get OS and architecture to set library file to use
 if jit.os == "Windows" then
@@ -1527,6 +1528,7 @@ void rlUnloadMesh(Mesh mesh);                                       // Unload me
 
 ]])
 
+
 raylib = ffi.load(lib)
 mt = { __index = raylib }
 rl = setmetatable({}, mt)
@@ -1587,5 +1589,259 @@ end
 -- RLGL stuff
 rl.RL_CULL_DISTANCE_NEAR           = 0.01      -- Default near cull distance
 rl.RL_CULL_DISTANCE_FAR            = 1000.0    -- Default far cull distance
+
+-- easings.h
+-- Linear Easing functions
+rl.EaseLinearNone = function(t, b, c, d) return (c * t / d + b) end
+rl.EaseLinearIn = function(t, b, c, d) return (c * t / d + b) end
+rl.EaseLinearOut = function(t, b, c, d) return (c * t / d + b) end
+rl.EaseLinearInOut = function(t,b, c, d) return (c * t / d + b) end
+
+-- Sine Easing functions
+rl.EaseSineIn = function(t, b, c, d) return (-c * math.cos(t / d * (math.pi / 2)) + c + b) end
+rl.EaseSineOut = function(t, b, c, d) return (c * math.sin(t / d * (math.pi / 2)) + b) end
+rl.EaseSineInOut = function(t, b, c, d) return (-c / 2 * (math.cos(math.pi * t / d) - 1) + b) end
+
+-- Circular Easing functions
+rl.EaseCircIn = function(t, b, c, d)
+    t = t / d
+    return (-c * (math.sqrt(1 - t * t) - 1) + b)
+end
+
+rl.EaseCircOut = function(t, b, c, d)
+    t = t / d - 1
+    return (c * math.sqrt(1 - t * t) + b)
+end
+
+rl.EaseCircInOut = function(t, b, c, d)
+    if t / (d / 2) < 1 then return (-c / 2 * (math.sqrt(1 - t * t) - 1) + b) end
+    t = t - 2
+    return (c / 2 * (math.sqrt(1 - t * t) + 1) + b)
+end
+
+-- Cubic Easing functions
+rl.EaseCubicIn = function(t, b, c, d)
+    t = t / d
+    return (c * t * t * t + b)
+end
+
+rl.EaseCubicOut = function(t, b, c, d)
+    t = t / d - 1
+    return (c * (t * t * t + 1) + b)
+end
+
+rl.EaseCubicInOut = function(t, b, c, d) 
+    if t / (d / 2) < 1 then return (c / 2 * t * t * t + b) end
+    t = t - 2
+    return (c / 2 * (t * t * t + 2) + b)
+end
+
+-- Quadratic Easing functions
+rl.EaseQuadIn = function(t, b, c, d)
+    t = t / d
+    return (c * t * t + b)
+end
+
+rl.EaseQuadOut = function(t, b, c, d)
+    t = t / d
+    return (-c * t * (t - 2) + b)
+end
+
+rl.EaseQuadInOut = function(t, b, c, d) 
+    if t / (d / 2) < 1 then return (((c / 2) * (t * t)) + b) end
+    t = t - 1
+    return (-c / 2 * (((t - 2) * t) - 1) + b)
+end
+
+-- Exponential Easing functions
+rl.EaseExpoIn = function(t, b, c, d)
+    if t == 0 then
+        return b
+    else
+        return c * math.pow(2, 10 * (t / d - 1)) + b
+    end
+end
+
+rl.EaseExpoOut = function(t, b, c, d)
+    if t == d then return b + c else return c * (-math.pow(2, -10 * t / d) + 1) + b end
+end
+
+rl.EaseExpoInOut = function(t, b, c, d)
+    if t == 0 then return b end
+    if t == d then return b + c end
+    if (t / (d / 2) < 1) then return c / 2 * math.pow(2, 10 * (t - 1)) + b end
+    return c / 2 * (-math.pow(2, -10 * t) + 2) + b
+end
+
+-- Back Easing functions
+rl.EaseBackIn = function(t, b, c, d) 
+    s = 1.70158
+    postFix = (t / d)
+    return c * (postFix) * t * ((s + 1) * t - s) + b
+end
+
+rl.EaseBackOut = function(t, b, c, d)
+    s = 1.70158
+    t = (t / d) - 1
+    return c * (t * t * ((s + 1) * t + s) + 1) + b
+end
+
+rl.EaseBackInOut = function(t, b, c, d)
+    s = 1.70158
+    if t / (d / 2) < 1 then 
+        s = s * 1.525
+        return c / 2 * (t * t * ((s + 1) * t - s)) + b
+    end
+    postFix = t - 2
+    s = s * 1.525
+    return c / 2 * ((postFix) * t * ((s + 1) * t + s) + 2) + b
+end
+
+-- Bounce Easing functions
+rl.EaseBounceOut = function(t, b, c, d)
+    if t / d < (1 / 2.75) then 
+        return c * (7.5625 * t * t) + b
+    elseif t < 2 / 2.75 then 
+        postFix = t - 1.5 / 2.75
+        return c * (7.5625 * (postFix) * t + 0.75) + b
+    elseif t < 2.5 / 2.75 then 
+        postFix = t - 2.25 / 2.75
+        return c * (7.5625 * (postFix) * t + 0.9375) + b
+    else 
+        postFix = t - (2.625 / 2.75)
+        return c * (7.5625 * (postFix) * t + 0.984375) + b
+    end
+end
+
+rl.EaseBounceIn = function(t, b, c, d) return c - EaseBounceOut(d - t, 0, c, d) + b end
+rl.EaseBounceInOut = function(t, b, c, d) 
+    if t < d / 2 then
+        return EaseBounceIn(t * 2, 0, c, d) * 0.5 + b
+    else
+        return EaseBounceOut(t * 2 - d, 0, c, d) * 0.5 + c * 0.5 + b
+    end
+end
+
+-- Elastic Easing functions
+rl.EaseElasticIn = function(t, b, c, d) 
+    if t == 0 then return b end
+    if t / d == 1 then return b + c end
+    p = d * 0.3
+    a = c 
+    s = p / 4
+    postFix = a * math.pow(2, 10 * (t - 1))
+    return -(postFix * math.sin((t * d - s) * (2 * math.pi) / p)) + b
+end
+
+rl.EaseElasticOut = function(t, b, c, d)
+    if t == 0 then return b end
+    if t / d == 1 then return b + c end
+    p = d * 0.3
+    a = c 
+    s = p / 4
+    return a * math.pow(2, -10 * t) * math.sin((t * d - s) * (2 * math.pi) / p) + c + b    
+end
+
+rl.EaseElasticInOut = function(t, b, c, d)
+    if t == 0 then return b end
+    if t / (d / 2) == 2 then return b + c end
+    p = d * (0.3 * 1.5)
+    a = c
+    s = p / 4
+    if t < 1 then
+        postFix = a * math.pow(2, 10 * ( t - 1))
+        return -0.5 * (postFix * math.sin((t * d - s) * (2 * math.pi) / p)) + b
+    end
+    postFix = a * math.pow(2, -10 * (t - 1))
+    return postFix * math.sin((t * d - s) * (2 * math.pi) / p) * 0.5 + c + b
+end
+
+
+-- rlights.h
+ffi.cdef([[
+//----------------------------------------------------------------------------------
+// Types and Structures Definition
+//----------------------------------------------------------------------------------
+typedef enum {
+    LIGHT_DIRECTIONAL,
+    LIGHT_POINT
+} LightType;
+
+typedef struct {
+    bool enabled;
+    LightType type;
+    Vector3 position;
+    Vector3 target;
+    Color color;
+    int enabledLoc;
+    int typeLoc;
+    int posLoc;
+    int targetLoc;
+    int colorLoc;
+} Light;
+]])
+
+rl.MAX_LIGHTS        = 4        -- Max lights supported by shader
+rl.LIGHT_DISTANCE    = 3.5      -- Light distance from world center
+rl.LIGHT_HEIGHT      = 1.0      -- Light height position
+
+rl.lights = ffi.new("Light[4]", ffi.new("Light"), ffi.new("Light"), ffi.new("Light"), ffi.new("Light"))
+rl.lightsCount = 0 -- Current amount of created lights
+
+-- Defines a light and get locations from PBR shader
+rl.CreateLight = function(type, pos, targ, color, shader)
+    light = ffi.new("Light")
+    if rl.lightsCount < rl.MAX_LIGHTS then
+        light.enabled = true
+        light.type = type
+        light.position = pos
+        light.target = targ
+        light.color = color
+
+        enabledName = "lights[x].enabled\0"
+        typeName = "lights[x].type\0"
+        posName = "lights[x].position\0"
+        targetName = "lights[x].target\0"
+        colorName = "lights[x].color\0"
+        
+        enabledName:gsub("0"..lightsCount)
+        typeName:gsub("0"..lightsCount)
+        posName:gsub("0"..lightsCount)
+        targetName:gsub("0"..lightsCount)
+        colorName:gsub("0"..lightsCount)
+        
+        light.enabledLoc = rl.GetShaderLocation(shader, enabledName)
+        light.typeLoc = rl.GetShaderLocation(shader, typeName)
+        light.posLoc = rl.GetShaderLocation(shader, posName)
+        light.targetLoc = rl.GetShaderLocation(shader, targetName)
+        light.colorLoc = rl.GetShaderLocation(shader, colorName)
+
+        rl.UpdateLightValues(shader, light)
+
+        rl.lights[rl.lightsCount] = light
+        rl.lightsCount = rl.lightsCount + 1
+    end
+end
+
+-- Send to PBR shader light values
+rl.UpdateLightValues = function(shader, light)
+    -- Send to shader light enabled state and type
+    rl.SetShaderValue(shader, light.enabledLoc, light.enabled, rl.UNIFORM_INT)
+    rl.SetShaderValue(shader, light.typeLoc, light.type, rl.UNIFORM_INT)
+
+    -- Send to shader light position values
+    rl.current_light_position = ffi.new("float[3]", light.position.x, light.position.y, light.position.z)
+    rl.SetShaderValue(shader, light.posLoc, rl.current_light_position, rl.UNIFORM_VEC3)
+
+    -- Send to shader light target position values
+    rl.current_light_target = ffi.new("float[3]", light.target.x, light.target.y, light.target.z)
+    rl.SetShaderValue(shader, light.targetLoc, rl.current_light_target, rl.UNIFORM_VEC3)
+
+    -- Send to shader light color values
+    rl.current_light_diff = ffi.new("float[4]", light.color.r / 255.0, light.color.g / 255.0, light.color.b / 255.0, light.color.a / 255.0)
+    rl.SetShaderValue(shader, light.colorLoc, rl.current_light_diff, rl.UNIFORM_VEC4)
+end
+
+-- raymath.h
 
 return rl
