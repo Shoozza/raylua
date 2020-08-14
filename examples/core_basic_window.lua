@@ -1,4 +1,4 @@
-local rl = require("raylib")
+dofile("../raylib.lua")
 
 local screenWidth = 800
 local screenHeight = 450
