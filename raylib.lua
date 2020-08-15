@@ -13,7 +13,7 @@ if jit.os == "Windows" then
     lib = "libraylib32.dll"
   end
 elseif jit.os == "OSX" then
-  lib = "libraylib.3.0.0.dylib"
+  lib = "libraylib.dylib"
 else
   if jit.arch == "x64" then
     lib = "libraylib64.so"
@@ -1860,8 +1860,20 @@ rl.Texture = function(...)
   return ffi.new("Texture", ...)
 end
 
+rl.TextureCubemap = function(...)
+  return ffi.new("TextureCubemap", ...)
+end
+
+rl.Texture2D = function(...)
+  return ffi.new("Texture2D", ...)
+end
+
 rl.RenderTexture = function(...)
   return ffi.new("RenderTexture", ...)
+end
+
+rl.RenderTexture2D = function(...)
+  return ffi.new("RenderTexture2D", ...)
 end
 
 rl.NPatchInfo = function(...)
@@ -1886,6 +1898,10 @@ end
 
 rl.Camera3D = function(...)
   return ffi.new("Camera3D", ...)
+end
+
+rl.Camera2D = function(...)
+  return ffi.new("Camera2D", ...)
 end
 
 rl.Mesh = function(...)
@@ -1946,6 +1962,13 @@ end
 
 rl.Light = function(...)
   return ffi.new("Light", ...)
+end
+
+-- It's impossible to create TraceLogCallback type so i implemented it
+-- All thanks goes to Astie Teddy
+-- NOTES: This still work in progress
+rl.TraceLogCallback = function(logType, ctext, arg)
+  t = ffi.string(ctext)
 end
 
 -- TODO: Add more compatibility with more bindings,Soon after doing the autocompletion...
