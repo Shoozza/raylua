@@ -1624,7 +1624,6 @@ void QuaternionToAxisAngle(Quaternion q, Vector3 *outAxis, float *outAngle);
 Quaternion QuaternionFromEuler(float roll, float pitch, float yaw);
 Vector3 QuaternionToEuler(Quaternion q);
 Quaternion QuaternionTransform(Quaternion q, Matrix mat);
-
 ]])
 
 -- easings.h
@@ -1726,7 +1725,7 @@ rl.FormatText  = rl.TextFormat
 rl.SubText     = rl.TextSubtext
 rl.ShowWindow  = rl.UnhideWindow
 rl.LoadText    = rl.LoadFileText
--- Fade        = rl.ColorAlpha
+rl.ColorAlpha  = rl.Fade
 
 -- RLGL stuff
 rl.RL_CULL_DISTANCE_NEAR           = 0.01      -- Default near cull distance
@@ -1944,5 +1943,11 @@ end
 rl.VrDeviceInfo = function(...)
   return ffi.new("VrDeviceInfo", ...)
 end
+
+rl.Light = function(...)
+  return ffi.new("Light", ...)
+end
+
+-- TODO: Add more compatibility with more bindings,Soon after doing the autocompletion...
 
 return rl
