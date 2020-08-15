@@ -49,14 +49,15 @@ For examples that binded see [here](https://github.com/Rabios/rayjit/blob/master
 
 1. This is a direct bindings of the original C version,It implements the same content.
 2. Hacks and fallbacks of raylib 2 still implemented,You can run raylib 2 code if you use raylib 3.
+3. To use SpriteFont from raylib 2 use `rl.SpriteFont(src)` font and not `ffi.new("SpriteFont", src)` cause it will give error.
 
 > And i didn't copy-pasted from any gist,Even that gist made by Alexander Matz,All bindings were written by me.
 
 ### Special thanks
 
-1. [Ramon Santamaria(raysan5)](https://github.com/raysan5) (Creator of [raylib](https://www.raylib.com) and RLGL)
-2. [Astie Teddy(TSnake41)](https://github.com/TSnake41) (Cause my bindings inspired by [his bindings](https://github.com/TSnake41/raylib-lua))
-3. [Alexander Matz(alexander-matz)](https://github.com/alexander-matz) ([His gist](https://gist.github.com/alexander-matz/f8ee4eb9fdf676203d70c1e5e329a6ec) was the first reason to write my own bindings from zero)
+1. [Ramon Santamaria(raysan5)](https://github.com/raysan5), Who created [raylib](https://www.raylib.com)
+2. [Astie Teddy(TSnake41)](https://github.com/TSnake41), Cause my bindings inspired by [his bindings](https://github.com/TSnake41/raylib-lua)
+3. [Alexander Matz(alexander-matz)](https://github.com/alexander-matz), Cause [his gist](https://gist.github.com/alexander-matz/f8ee4eb9fdf676203d70c1e5e329a6ec) was the first reason to write my own bindings from zero
 
 ### License
 
