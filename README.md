@@ -15,7 +15,7 @@ Modern and updated LuaJIT bindings for raylib,Written by me from scratch.
 ### Supports
 
 1. Microsoft Windows (32-bit and 64-bit)
-2. Mac (64-bit)
+2. Mac (32-bit and 64-bit)
 3. Linux (32-bit and 64-bit)
 
 ### Example
