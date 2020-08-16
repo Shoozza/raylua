@@ -1960,6 +1960,10 @@ rl.AudioStream = function(...)
   return ffi.new("AudioStream", ...)
 end
 
+rl.rAudioBuffer = function(...)
+  return ffi.new("rAudioBuffer", ...)
+end
+
 rl.VrDeviceInfo = function(...)
   return ffi.new("VrDeviceInfo", ...)
 end
