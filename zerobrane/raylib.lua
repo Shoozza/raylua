@@ -7,8 +7,7 @@ return {
   rl = {
     type = "lib",
     description = "raylib bindings for Lua",
-    childs = {
-      
+    childs = {   
       -- module: core
       -- Window-related functions
       InitWindow = {
