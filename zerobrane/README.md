@@ -7,8 +7,8 @@ I finally did autocompletion for raylua,It's also works on the following binding
 
 ### Installation
 
-1. Download `raylib.lua` (NOT the bindings, But the autocompletion file in `zerobrane`) as raw file or just download repo as zip to copy it.
-2. Paste `raylib.lua` for example in `api\lua` directory where you installed ZeroBrane Studio.
+1. Download [`raylib.lua`](https://github.com/Rabios/raylua/blob/master/zerobrane/raylib.lua) (NOT the bindings, But the autocompletion file in `zerobrane`) as raw file or just download repo as zip to copy it.
+2. Paste it for example in `api\lua` directory where you installed ZeroBrane Studio.
 3. Go to Edit menu -> Preferences -> Settings: User.
 4. Add following and save file then close the file:
 
