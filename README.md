@@ -52,6 +52,10 @@ For examples that binded see [here](https://github.com/Rabios/rayjit/blob/master
 
 > And i didn't copy-pasted from any gist,Even that gist made by Alexander Matz,All bindings were written by me.
 
+### Compatibility
+
+See [`compatibility.md`](https://github.com/Rabios/raylua/blob/master/compatibility.md) for info about this.
+
 ### Special thanks
 
 1. [Ramon Santamaria(raysan5)](https://github.com/raysan5), Who created [raylib](https://www.raylib.com).

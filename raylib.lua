@@ -3,6 +3,10 @@
 
 ffi = require("ffi")   -- For bindings,We will use LuaJIT FFI
 jit = require("jit")   -- JIT for getting OS and architecture to load suitable library file
+
+-- For not throwing errors cause of duplicating when using other LuaJIT bindings
+if not (type(rl) == "userdata" or type(rl) == "table") then
+
 local lib = ""         -- Keep this empty so it changed when this file loaded/required directly
 
 -- Get OS and architecture to set library file to use
@@ -1457,8 +1461,8 @@ void rlVertex3f(float x, float y, float z);     // Define one vertex (position) 
 void rlTexCoord2f(float x, float y);            // Define one vertex (texture coordinate) - 2 float
 void rlNormal3f(float x, float y, float z);     // Define one vertex (normal) - 3 float
 void rlColor4ub(byte r, byte g, byte b, byte a);    // Define one vertex (color) - 4 byte
-void rlColor3f(float x, float y, float z);          // Define one vertex (color) - 3 float
-void rlColor4f(float x, float y, float z, float w); // Define one vertex (color) - 4 float
+void rlColor3f(float r, float g, float b);          // Define one vertex (color) - 3 float
+void rlColor4f(float r, float g, float b, float a); // Define one vertex (color) - 4 float
 
 //------------------------------------------------------------------------------------
 // Functions Declaration - OpenGL equivalent functions (common to 1.1, 3.3+, ES2)
@@ -1888,7 +1892,7 @@ rl.Font = function(...)
   return ffi.new("Font", ...)
 end
 
-function rl.SpriteFont(...)
+rl.SpriteFont = function(...)
   return ffi.new("SpriteFont", ...)
 end
 
@@ -1960,8 +1964,18 @@ rl.VrDeviceInfo = function(...)
   return ffi.new("VrDeviceInfo", ...)
 end
 
+-- For rlights.h
 rl.Light = function(...)
   return ffi.new("Light", ...)
+end
+
+-- For raymath.h
+rl.float3 = function(...)
+  return ffi.new("float3", ...)
+end
+
+rl.float16 = function(...)
+  return ffi.new("float16", ...)
 end
 
 -- It's impossible to create TraceLogCallback type so i implemented it
@@ -1971,6 +1985,8 @@ rl.TraceLogCallback = function(logType, ctext, arg)
   t = ffi.string(ctext)
 end
 
--- TODO: Add more compatibility with more bindings,Soon after doing the autocompletion...
-
 return rl
+
+else
+  setmetatable(_G, { __index = rl })
+end
