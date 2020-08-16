@@ -1,5 +1,5 @@
 -- Started by Rabia Alhaffar in 14/August/2020
--- Finished in 16/Auguest/2020
+-- Finished in 16/August/2020
 -- Latest version: v0.1, 16/August/2020
 -- Autocompletion for my bindings/TSnake41's LuaJIT bindings/Alexander Matz's bindings
 -- Sources: https://www.raylib.com/cheatsheet/cheatsheet.html, And bindings headers
