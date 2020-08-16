@@ -5251,6 +5251,13 @@ return {
         returns = "(AudioStream)"
       },
       
+      rAudioBuffer = {
+        type = "function",
+        description = "Creates rAudioBuffer type",
+        args = "(...)",
+        returns = "(rAudioBuffer)"
+      },
+      
       VrDeviceInfo = {
         type = "function",
         description = "Creates VrDeviceInfo type",
