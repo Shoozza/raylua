@@ -56,6 +56,10 @@ For examples that binded see [here](https://github.com/Rabios/rayjit/blob/master
 
 See [`compatibility.md`](https://github.com/Rabios/raylua/blob/master/compatibility.md) for info about this.
 
+### Autocompletion
+
+I finally did autocompletion for raylib Lua/LuaJIT bindings to use in ZeroBrane Studio,See [here](https://github.com/Rabios/raylua/blob/master/zerobrane/README.md) about that and how to use it.
+
 ### Special thanks
 
 1. [Ramon Santamaria(raysan5)](https://github.com/raysan5), Who created [raylib](https://www.raylib.com).
