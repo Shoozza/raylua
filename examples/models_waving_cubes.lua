@@ -1,4 +1,4 @@
-dofile("../raylib.lua")
+local rl = require("raylib")
 local math = require("math")
 
 local screenWidth = 800
@@ -6,10 +6,10 @@ local screenHeight = 450
 
 rl.InitWindow(screenWidth, screenHeight, "raylib [models] example - waving cubes")
 
-local camera = ffi.new("Camera3D")
-camera.position = ffi.new("Vector3", 30.0, 20.0, 30.0)
-camera.target = ffi.new("Vector3", 0.0, 0.0, 0.0)
-camera.up = ffi.new("Vector3", 0.0, 1.0, 0.0)
+local camera = rl.Camera()
+camera.position = rl.Vector3(30.0, 20.0, 30.0)
+camera.target = rl.Vector3(0.0, 0.0, 0.0)
+camera.up = rl.Vector3(0.0, 1.0, 0.0)
 camera.fovy = 70.0
 camera.type = rl.CAMERA_PERSPECTIVE
 
@@ -33,11 +33,11 @@ while not rl.WindowShouldClose() do    -- Detect window close button or ESC key
       for z = 0, numBlocks, 1 do
         local blockScale = (x + y + z) / 30.0
         local scatter = math.sin(blockScale * 20.0 + (time * 4.0))
-        local cubePos = ffi.new("Vector3",(x - numBlocks / 2) * (scale * 3.0) + scatter,
+        local cubePos = rl.Vector3((x - numBlocks / 2) * (scale * 3.0) + scatter,
                                           (y - numBlocks / 2) * (scale * 2.0) + scatter,
                                           (z - numBlocks / 2) * (scale * 3.0) + scatter)
 
-        local cubeColor = ffi.new("Color", rl.ColorFromHSV(ffi.new("Vector3", (((x + y + z) * 18) % 360), 0.75, 0.9 )))
+        local cubeColor = rl.Color(rl.ColorFromHSV(ffi.new("Vector3", (((x + y + z) * 18) % 360), 0.75, 0.9 )))
         local cubeSize = (2.4 - scale) * blockScale
         rl.DrawCube(cubePos, cubeSize, cubeSize, cubeSize, cubeColor)
 			end
