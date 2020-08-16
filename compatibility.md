@@ -1,4 +1,4 @@
-# raylua compatibility gude
+# raylua compatibility guide
 
 ### With robloach's raylib-lua-sol or raysan5's raylib-lua bindings
 
