@@ -1784,12 +1784,12 @@ rl.CreateLight = function(type, pos, targ, color, shader)
     targetName = "lights[x].target\0"
     colorName = "lights[x].color\0"
         
-    enabledName:gsub("0"..lightsCount)
-    typeName:gsub("0"..lightsCount)
-    posName:gsub("0"..lightsCount)
-    targetName:gsub("0"..lightsCount)
-    colorName:gsub("0"..lightsCount)
-        
+    enabledName:gsub("x", "0"..lightsCount)
+    typeName:gsub("x", "0"..lightsCount)
+    posName:gsub("x", "0"..lightsCount)
+    targetName:gsub("x", "0"..lightsCount)
+    colorName:gsub("x", "0"..lightsCount)
+    
     light.enabledLoc = rl.GetShaderLocation(shader, enabledName)
     light.typeLoc = rl.GetShaderLocation(shader, typeName)
     light.posLoc = rl.GetShaderLocation(shader, posName)
@@ -1988,8 +1988,30 @@ rl.TraceLogCallback = function(logType, ctext, arg)
   t = ffi.string(ctext)
 end
 
+-- Examples variables
+-- Maximum value of a float, from bit pattern 01111111011111111111111111111111
+rl.FLT_MAX = 340282346638528859811704183484516925440.0
+
+setmetatable(_G, { __index = rl })
 return rl
 
 else
+  -- If raylib bindings was defined by another bindings, Define hacks and macros!
+  rl.PI = 3.14159265358979323846
+  rl.DEG2RAD = rl.PI / 180.0
+  rl.RAD2DEG = 180.0 / rl.PI
+  
+  rl.LOC_MAP_DIFFUSE  = rl.LOC_MAP_ALBEDO
+  rl.LOC_MAP_SPECULAR = rl.LOC_MAP_METALNESS
+  rl.MAP_DIFFUSE      = rl.MAP_ALBEDO
+  rl.MAP_SPECULAR     = rl.MAP_METALNESS
+  
+  rl.FormatText  = rl.TextFormat
+  rl.SubText     = rl.TextSubtext
+  rl.ShowWindow  = rl.UnhideWindow
+  rl.LoadText    = rl.LoadFileText
+  rl.ColorAlpha  = rl.Fade
+  
   setmetatable(_G, { __index = rl })
+  return rl
 end
