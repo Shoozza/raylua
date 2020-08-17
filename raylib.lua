@@ -1,8 +1,7 @@
 -- Written by Rabia Alhaffar in 12/August/2020
 -- raylua,Modern LuaJIT bindings for raylib
 
-ffi = require("ffi")   -- For bindings,We will use LuaJIT FFI
-jit = require("jit")   -- JIT for getting OS and architecture to load suitable library file
+ffi = require("ffi")   -- For bindings,We will use LuaJIT FFI,And getting OS to load library file also.
 
 -- For not throwing errors cause of duplicating when using other LuaJIT bindings
 if not (type(rl) == "userdata" or type(rl) == "table") then
@@ -10,16 +9,16 @@ if not (type(rl) == "userdata" or type(rl) == "table") then
 local lib = ""         -- Keep this empty so it changed when this file loaded/required directly
 
 -- Get OS and architecture to set library file to use
-if jit.os == "Windows" then
-  if jit.arch == "x64" then
+if ffi.os == "Windows" then
+  if ffi.arch == "x64" then
     lib = "libraylib64.dll"
   else
     lib = "libraylib32.dll"
   end
-elseif jit.os == "OSX" then
+elseif ffi.os == "OSX" then
   lib = "libraylib.dylib"
 else
-  if jit.arch == "x64" then
+  if ffi.arch == "x64" then
     lib = "libraylib64.so"
   else
     lib = "libraylib32.so"
