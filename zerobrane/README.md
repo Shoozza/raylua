@@ -35,4 +35,4 @@ table.insert(api, "raylib")
 
 ### NOTES
 
-1. [TSnake41's LuaJIT bindings](https://github.com/TSnake41/raylib-lua) is only one support physics functions,But it doesn't support rlights as i did!
+1. [TSnake41's LuaJIT bindings](https://github.com/TSnake41/raylib-lua) is only one support physac functions,But it doesn't support rlights as i did!
