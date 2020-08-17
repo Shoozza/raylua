@@ -7,7 +7,7 @@ return {
   rl = {
     type = "lib",
     description = "raylib bindings for Lua",
-    childs = {   
+    childs = {
       -- module: core
       -- Window-related functions
       InitWindow = {
@@ -5299,6 +5299,12 @@ return {
         description = "Creates PhysicsBody type",
         args = "(...)",
         returns = "(PhysicsBody)"
+      },
+      
+      -- Examples variables
+      FLT_MAX = {
+        type = "value",
+        description = "Maximum value of a float, from bit pattern 01111111011111111111111111111111"
       },
     }
   }
