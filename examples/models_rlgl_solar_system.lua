@@ -46,7 +46,7 @@ local function DrawSphereBasic(color)
                          
       rl.rlVertex3f(math.cos(rl.DEG2RAD * (270 + (180 / (rings + 1)) * (i + 1))) * math.sin(rl.DEG2RAD * ((j + 1) * 360 / slices)),
                     math.sin(rl.DEG2RAD * (270 + (180 / (rings + 1)) * (i + 1))),
-                    math.cos(rl.DEG2RAD * (270 + (180 / (rings + 1)) * (i + 1))) * math.cos(rl.DEG2RAD*((j + 1) * 360 / slices)))
+                    math.cos(rl.DEG2RAD * (270 + (180 / (rings + 1)) * (i + 1))) * math.cos(rl.DEG2RAD * ((j + 1) * 360 / slices)))
                          
       rl.rlVertex3f(math.cos(rl.DEG2RAD * (270 + (180 / (rings + 1)) * (i + 1))) * math.sin(rl.DEG2RAD * (j * 360 / slices)),
                     math.sin(rl.DEG2RAD * (270 + (180 / (rings + 1)) * (i + 1))),
