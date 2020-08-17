@@ -1,9 +1,15 @@
-# ZeroBrane autocompletion
+# ZeroBrane Studio autocompletion
 
 I finally did autocompletion for raylua,It's also works on the following bindings:
 
 - [raylib-lua](https://github.com/TSnake41/raylib-lua)
 - [raylib-luajit](https://github.com/darltrash/raylib-luajit) (Based on [Alexander Matz's gist](https://gist.github.com/alexander-matz/f8ee4eb9fdf676203d70c1e5e329a6ec))
+
+### Demo
+
+Here is a GIF showcasing the autocompletion
+
+<img src="https://github.com/Rabios/raylua/blob/master/zerobrane/demo.gif">
 
 ### Installation
 
@@ -24,9 +30,9 @@ table.insert(api, "luajit2")
 table.insert(api, "raylib")
 ```
 
-5. If you set LuaJIT executable,Go Project menu -> Lua Interpreter -> Lua
-6. When you run something,Make sure you stop debugging and continue without problems .after pressing run button to start debugging
+5. If you set LuaJIT executable,Go Project menu -> Lua Interpreter -> Lua.
+6. When you run something,Press "Execute the current project/file (F6)" button cause debugging always slows program.
 
 ### NOTES
 
-1. TSnake41/raylib-lua'b bindings's is only one support physics functions,But it doesn't support rlights and easings and rlgl as i did!
+1. [TSnake41's LuaJIT bindings](https://github.com/TSnake41/raylib-lua) is only one support physics functions,But it doesn't support rlights and easings and rlgl as i did!
