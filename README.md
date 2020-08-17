@@ -43,7 +43,7 @@ rl.CloseWindow()
 
 For examples that binded see [here](https://github.com/Rabios/rayjit/blob/master/examples/README.md)
 
-> All contained functions and variables called from `rl`.
+> All contained functions and variables called from `rl` namespace/table.
 
 ### NOTES
 
