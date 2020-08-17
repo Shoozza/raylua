@@ -1,4 +1,6 @@
-# Examples binded to LuaJIT via raylua
+# Examples
+
+### Official
 
 - [core_basic_window](https://github.com/Rabios/rayjit/blob/master/examples/core_basic_window.lua)
 <img src="https://github.com/Rabios/rayjit/blob/master/examples/core_basic_window.png">
@@ -17,3 +19,7 @@
 
 - [models_rlgl_solar_system](https://github.com/Rabios/rayjit/blob/master/examples/models_rlgl_solar_system.lua)
 <img src="https://github.com/Rabios/rayjit/blob/master/examples/models_rlgl_solar_system.png">
+
+### Unofficial
+
+- [compatibility_example](https://github.com/Rabios/rayjit/blob/master/examples/compatibility_example.lua), Example that shows compatibility between raylua and other Lua bindings.
