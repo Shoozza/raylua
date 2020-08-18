@@ -2,7 +2,7 @@
 
 <img src="https://github.com/Rabios/raylua/blob/master/raylua.png">
 
-Modern and updated LuaJIT bindings for raylib,Written by me from scratch.
+Cross-Platform, Modern, And updated LuaJIT bindings for raylib library, Written by me from scratch.
 
 ### Contains
 
@@ -59,6 +59,12 @@ See [`compatibility.md`](https://github.com/Rabios/raylua/blob/master/compatibil
 ### Autocompletion
 
 I finally did autocompletion for raylib Lua/LuaJIT bindings to use in ZeroBrane Studio,See [here](https://github.com/Rabios/raylua/blob/master/zerobrane/README.md) about that and how to use it.
+
+### TSnake41's version
+
+I did custom version using [TSnake41's raylib-lua](https://github.com/TSnake41/raylib-lua), Currently works only on 64-bit versions of Microsoft Windows and 64-bit versions of LuaJIT.
+
+It adds Physac support with my bindings,To get it see [tsnake41-raylib-lua](https://github.com/Rabios/raylua/blob/master/tsnake41-raylib-lua) folder.
 
 ### Special thanks
 
