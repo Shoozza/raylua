@@ -3,6 +3,10 @@
 
 ffi = require("ffi")   -- For bindings,We will use LuaJIT FFI,And getting OS to load library file also.
 
+ffi.cdef([[
+  int vsnprintf(char *, size_t, const char *, va_list);  
+]])
+  
 -- For not throwing errors cause of duplicating when using other LuaJIT bindings
 if not (type(rl) == "userdata" or type(rl) == "table") then
 
@@ -1981,11 +1985,14 @@ rl.float16 = function(...)
   return ffi.new("float16", ...)
 end
 
--- It's impossible to create TraceLogCallback type so i implemented it
--- All thanks goes to Astie Teddy
--- NOTES: This still work in progress
-rl.TraceLogCallback = function(logType, ctext, arg)
-  t = ffi.string(ctext)
+-- TraceLogCallback implementation, All thanks goes to Astie Teddy (@TSnake41)
+rl.SetTraceLogCallback = function(callback)
+  rl.SetTraceLogCallback(function (level, text, args)
+    local buffer = ffi.new("char[?]", 512)
+    rl.vsnprintf(buffer, 512, text, args)
+    
+    callback(level, ffi.string(buffer))
+  end)
 end
 
 -- Examples variables
@@ -2012,6 +2019,15 @@ else
   rl.LoadText    = rl.LoadFileText
   rl.ColorAlpha  = rl.Fade
   
+  rl.SetTraceLogCallback = function(callback)
+    rl.SetTraceLogCallback(function (level, text, args)
+      local buffer = ffi.new("char[?]", 512)
+      rl.vsnprintf(buffer, 512, text, args)
+    
+      callback(level, ffi.string(buffer))
+    end)
+  end
+
   setmetatable(_G, { __index = rl })
   return rl
 end
