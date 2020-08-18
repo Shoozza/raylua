@@ -5264,6 +5264,13 @@ return {
         returns = "(VrDeviceInfo)"
       },
       
+      new = {
+        type = "function",
+        description = "Same as ffi.new, Creates C types",
+        args = "(ctype: ctype, ...)",
+        returns = "(userdata)"
+      },
+      
       -- For rlights.h
       Light = {
         type = "function",
