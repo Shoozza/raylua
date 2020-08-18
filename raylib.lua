@@ -1,8 +1,9 @@
 -- Written by Rabia Alhaffar in 12/August/2020
 -- raylua,Modern LuaJIT bindings for raylib
 
-ffi = require("ffi")   -- For bindings,We will use LuaJIT FFI,And getting OS to load library file also.
+ffi = require("ffi")   -- For bindings,We will use LuaJIT FFI,And getting OS to load library file also
 
+-- For SetTraceLogCallback function, We defined vsnprintf from C
 ffi.cdef([[
   int vsnprintf(char *, size_t, const char *, va_list);  
 ]])
@@ -10,7 +11,7 @@ ffi.cdef([[
 -- For not throwing errors cause of duplicating when using other LuaJIT bindings
 if not (type(rl) == "userdata" or type(rl) == "table") then
 
-local lib = ""         -- Keep this empty so it changed when this file loaded/required directly
+local lib = ""  -- Keep this empty so it changed when this file loaded/required directly
 
 -- Get OS and architecture to set library file to use
 if ffi.os == "Windows" then
@@ -1985,12 +1986,12 @@ rl.float16 = function(...)
   return ffi.new("float16", ...)
 end
 
--- TraceLogCallback implementation, All thanks goes to Astie Teddy (@TSnake41)
-rl.SetTraceLogCallback = function(callback)
-  rl.SetTraceLogCallback(function (level, text, args)
+-- SetTraceLogCallback implementation, All thanks goes to Astie Teddy (@TSnake41)
+local C_SetTraceLogCallback = rl.SetTraceLogCallback 
+function rl.SetTraceLogCallback(callback)
+  C_SetTraceLogCallback(function (level, text, args)
     local buffer = ffi.new("char[?]", 512)
-    rl.vsnprintf(buffer, 512, text, args)
-    
+    ffi.C.vsnprintf(buffer, 512, text, args)
     callback(level, ffi.string(buffer))
   end)
 end
@@ -2019,12 +2020,12 @@ else
   rl.LoadText    = rl.LoadFileText
   rl.ColorAlpha  = rl.Fade
   
-  -- TraceLogCallback implementation, All thanks goes to Astie Teddy (@TSnake41)
-  rl.SetTraceLogCallback = function(callback)
-    rl.SetTraceLogCallback(function (level, text, args)
+  -- SetTraceLogCallback implementation, All thanks goes to Astie Teddy (@TSnake41)
+  local C_SetTraceLogCallback = rl.SetTraceLogCallback 
+  function rl.SetTraceLogCallback(callback)
+    C_SetTraceLogCallback(function (level, text, args)
       local buffer = ffi.new("char[?]", 512)
-      rl.vsnprintf(buffer, 512, text, args)
-    
+      ffi.C.vsnprintf(buffer, 512, text, args)
       callback(level, ffi.string(buffer))
     end)
   end

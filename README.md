@@ -41,7 +41,7 @@ end
 rl.CloseWindow()
 ```
 
-For examples that binded see [here](https://github.com/Rabios/rayjit/blob/master/examples/README.md)
+For examples that binded see [here](https://github.com/Rabios/raylua/blob/master/examples/README.md)
 
 > All contained functions and variables called from `rl` namespace/table.
 
@@ -68,4 +68,4 @@ I finally did autocompletion for raylib Lua/LuaJIT bindings to use in ZeroBrane 
 
 ### License
 
-See [`LICENSE.txt`](https://github.com/Rabios/rayjit/blob/master/LICENSE.txt) for bindings license and [`LICENSES.txt`](https://github.com/Rabios/rayjit/blob/master/LICENSES.txt) for third party licenses.
+See [`LICENSE.txt`](https://github.com/Rabios/raylua/blob/master/LICENSE.txt) for bindings license and [`LICENSES.txt`](https://github.com/Rabios/raylua/blob/master/LICENSES.txt) for third party licenses.
