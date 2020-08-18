@@ -495,7 +495,7 @@ return {
       SetTraceLogCallback = {
         type = "function",
         description = "Set a trace log callback to enable custom logging",
-        args = "",
+        args = "(callback: function)",
         returns = "(void)"
       },
       
@@ -5285,13 +5285,6 @@ return {
         description = "Creates float16 type",
         args = "(...)",
         returns = "(float16)"
-      },
-      
-      TraceLogCallback = {
-        type = "function",
-        description = "Creates TraceLogCallback type",
-        args = "(...)",
-        returns = "(TraceLogCallback)"
       },
       
       PhysicsBody = {
