@@ -1972,6 +1972,10 @@ rl.VrDeviceInfo = function(...)
   return ffi.new("VrDeviceInfo", ...)
 end
 
+rl.new = function(ctype, ...)
+  return ffi.new(ctype, ...)
+end
+
 -- For rlights.h
 rl.Light = function(...)
   return ffi.new("Light", ...)
