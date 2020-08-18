@@ -2019,6 +2019,7 @@ else
   rl.LoadText    = rl.LoadFileText
   rl.ColorAlpha  = rl.Fade
   
+  -- TraceLogCallback implementation, All thanks goes to Astie Teddy (@TSnake41)
   rl.SetTraceLogCallback = function(callback)
     rl.SetTraceLogCallback(function (level, text, args)
       local buffer = ffi.new("char[?]", 512)
