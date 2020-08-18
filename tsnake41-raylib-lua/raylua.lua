@@ -1,5 +1,6 @@
 -- Written by Rabia Alhaffar in 18/August/2020
--- NOTES: This version is for 64-bit Microsoft Windows,Based on TSnake41's raylib-lua
+-- NOTES: This version is for 64-bit Microsoft Windows and 64-bit LuaJIT ONLY!,Based on TSnake41's raylib-lua
+-- https://github.com/TSnake41/raylib-lua
 
 ffi = require("ffi")   -- For bindings,We will use LuaJIT FFI,And getting OS to load library file also
 
