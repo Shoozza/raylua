@@ -4,6 +4,7 @@ I finally did autocompletion for raylua,It's also works on the following binding
 
 - [raylib-lua](https://github.com/TSnake41/raylib-lua)
 - [raylib-luajit](https://github.com/darltrash/raylib-luajit) (Based on [Alexander Matz's gist](https://gist.github.com/alexander-matz/f8ee4eb9fdf676203d70c1e5e329a6ec))
+- Any other old raylib bindings.
 
 ### Demo
 
