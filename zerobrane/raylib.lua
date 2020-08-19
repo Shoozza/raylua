@@ -3193,7 +3193,7 @@ return {
         description = "Set to allow windows running while minimized"
       },
       
-      FLAG_WINDOW_4X_HINT = {
+      FLAG_MSAA_4X_HINT = {
         type = "value",
         description = "Set to try enabling MSAA 4X"
       },
