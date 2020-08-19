@@ -3198,7 +3198,7 @@ return {
         description = "Set to try enabling MSAA 4X"
       },
       
-      FLAG_WINDOW_VSYNC_HINT = {
+      FLAG_VSYNC_HINT = {
         type = "value",
         description = "Set to try enabling V-Sync on GPU"
       },
