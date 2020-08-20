@@ -37,6 +37,10 @@ else
   end
 end
 
+-- Uncomment the line below to run on Android
+-- If libraylib64_android_armaebi.so doesn't work try libraylib64_android_intel.so
+--lib = "libraylib64_android_armaebi.so"
+
 -- raylib.h
 ffi.cdef([[
 /**********************************************************************************************
