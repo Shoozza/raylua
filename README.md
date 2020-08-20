@@ -17,7 +17,7 @@ Cross-Platform, Modern, And updated LuaJIT bindings for raylib library, Written 
 1. Microsoft Windows (32-bit and 64-bit)
 2. Mac (32-bit and 64-bit)
 3. Linux (32-bit and 64-bit)
-4. Android (64-bit), Versions are ARM64 and x86_64 (Intel-based)
+4. Android (64-bit), Versions are ARM64 (armaebi) and x86_64 (Intel-based)
 
 ### Example
 
