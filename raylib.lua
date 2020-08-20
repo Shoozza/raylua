@@ -7,7 +7,7 @@ ffi = require("ffi")   -- For bindings,We will use LuaJIT FFI,And getting OS to 
 -- null implementation
 NUL = "\0"
 function NULL(v)
-  if v == nil
+  return v == nil
 end
 
 -- For SetTraceLogCallback function, We defined vsnprintf from C
