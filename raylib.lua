@@ -1,8 +1,14 @@
 -- Written by Rabia Alhaffar in 12/August/2020
 -- raylua,Cross-Platform, Modern, And updated LuaJIT bindings for raylib library, Written by me from scratch.
--- Latest update: 18/August/2020 at 10:42 PM
+-- Latest update: 20/August/2020 at 10:41 PM
 
 ffi = require("ffi")   -- For bindings,We will use LuaJIT FFI,And getting OS to load library file also
+
+-- null implementation
+NUL = "\0"
+function NULL(v)
+  if v == nil
+end
 
 -- For SetTraceLogCallback function, We defined vsnprintf from C
 ffi.cdef([[
