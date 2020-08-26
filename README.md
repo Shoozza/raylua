@@ -50,6 +50,7 @@ For examples that binded see [here](https://github.com/Rabios/raylua/blob/master
 
 1. This is a direct bindings of the original C version,It implements the same content.
 2. Hacks and fallbacks of raylib 2 still implemented,You can run raylib 2 code if you use raylib 3.
+3. If you use PUC-RIO Lua (Not LuaJIT), You have to install luaffi rock with luarocks, Using `luarocks install --server=https://luarocks.org/dev luaffi` command.
 
 > And i didn't copy-pasted from any gist,Even that gist made by Alexander Matz,All bindings were written by me.
 
