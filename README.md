@@ -49,8 +49,7 @@ For examples that binded see [here](https://github.com/Rabios/raylua/blob/master
 ### NOTES
 
 1. This is a direct bindings of the original C version,It implements the same content.
-2. Hacks and fallbacks of raylib 2 still implemented,You can run raylib 2 code if you use raylib 3.
-3. If you use PUC-RIO Lua (Not LuaJIT), You have to install luaffi rock with luarocks, Using `luarocks install --server=https://luarocks.org/dev luaffi` command.
+2. Hacks and fallbacks of raylib 2 implemented from original C version, raylib 2 functions will still works if you use raylib 3.
 
 > And i didn't copy-pasted from any gist,Even that gist made by Alexander Matz,All bindings were written by me.
 
@@ -61,6 +60,14 @@ See [`compatibility.md`](https://github.com/Rabios/raylua/blob/master/compatibil
 ### Autocompletion
 
 I finally did autocompletion for raylib Lua/LuaJIT bindings to use in ZeroBrane Studio,See [here](https://github.com/Rabios/raylua/blob/master/zerobrane/README.md) about that and how to use it.
+
+### Running this on PUC-RIO Lua (Not LuaJIT)
+
+If you use PUC-RIO Lua (Not LuaJIT), You have to install luaffi rock with luarocks!
+
+Using `luarocks install --server=https://luarocks.org/dev luaffi` command.
+
+However, I don't guarantee that it works same as LuaJIT FFI.
 
 ### TSnake41's version
 
