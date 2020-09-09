@@ -1,8 +1,8 @@
 -- Written by Rabia Alhaffar in 18/August/2020
--- NOTES: This version is for 64-bit Microsoft Windows and 64-bit LuaJIT ONLY!,Based on TSnake41's raylib-lua
+-- NOTES: This version is for 64-bit Microsoft Windows and 64-bit LuaJIT ONLY!, Based on TSnake41's raylib-lua
 -- https://github.com/TSnake41/raylib-lua
 
-ffi = require("ffi")   -- For bindings,We will use LuaJIT FFI,And getting OS to load library file also
+ffi = require("ffi")   -- We will use LuaJIT FFI for bindings, And to get OS and architecture to load library file!
 
 -- For SetTraceLogCallback function, We defined vsnprintf from C
 ffi.cdef([[
@@ -2306,32 +2306,7 @@ setmetatable(_G, { __index = rl })
 return rl
 
 else
-  -- If raylib bindings was defined by another bindings, Define hacks and macros!
-  rl.PI = 3.14159265358979323846
-  rl.DEG2RAD = rl.PI / 180.0
-  rl.RAD2DEG = 180.0 / rl.PI
-  
-  rl.LOC_MAP_DIFFUSE  = rl.LOC_MAP_ALBEDO
-  rl.LOC_MAP_SPECULAR = rl.LOC_MAP_METALNESS
-  rl.MAP_DIFFUSE      = rl.MAP_ALBEDO
-  rl.MAP_SPECULAR     = rl.MAP_METALNESS
-  
-  rl.FormatText  = rl.TextFormat
-  rl.SubText     = rl.TextSubtext
-  rl.ShowWindow  = rl.UnhideWindow
-  rl.LoadText    = rl.LoadFileText
-  rl.ColorAlpha  = rl.Fade
-  
-  -- SetTraceLogCallback implementation, All thanks goes to Astie Teddy (@TSnake41)
-  local C_SetTraceLogCallback = rl.SetTraceLogCallback 
-  function rl.SetTraceLogCallback(callback)
-    C_SetTraceLogCallback(function (level, text, args)
-      local buffer = ffi.new("char[?]", 512)
-      ffi.C.vsnprintf(buffer, 512, text, args)
-      callback(level, ffi.string(buffer))
-    end)
-  end
 
-  setmetatable(_G, { __index = rl })
-  return rl
+return rl
+
 end
