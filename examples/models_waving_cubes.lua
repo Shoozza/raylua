@@ -17,8 +17,8 @@ local numBlocks = 15
 rl.SetTargetFPS(60)
 
 while not rl.WindowShouldClose() do    -- Detect window close button or ESC key
-  time = rl.GetTime()
-  scale = 2.0 + math.sin(time) * 0.7
+  local time = rl.GetTime()
+  local scale = 2.0 + math.sin(time) * 0.7
 
   local cameraTime = time * 0.3
   camera.position.x = math.cos(cameraTime) * 40.0

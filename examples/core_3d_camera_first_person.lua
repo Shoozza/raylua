@@ -1,13 +1,12 @@
 local rl = require("raylib")
-local MAX_COLUMNS = 30
+local MAX_COLUMNS = 20
 
-local screenWidth = rl.GetScreenWidth()
-local screenHeight = rl.GetScreenHeight()
+local screenWidth = 800
+local screenHeight = 450
 
 rl.InitWindow(screenWidth, screenHeight, "raylib [core] example - 3d camera first person")
-rl.ToggleFullscreen()
 
-camera = rl.Camera()
+local camera = rl.Camera()
 camera.position = rl.Vector3(4.0, 2.0, 4.0)
 camera.target = rl.Vector3(0.0, 1.8, 0.0)
 camera.up = rl.Vector3(0.0, 1.0, 0.0)
@@ -25,11 +24,9 @@ for i = 0, MAX_COLUMNS, 1 do
 end
 
 rl.SetCameraMode(camera, rl.CAMERA_FIRST_PERSON)
-
 rl.SetTargetFPS(120)
 
 while not rl.WindowShouldClose() do
-  
   rl.UpdateCamera(camera)
   rl.BeginDrawing()
   rl.ClearBackground(rl.RAYWHITE)
@@ -40,7 +37,7 @@ while not rl.WindowShouldClose() do
   rl.DrawCube(rl.Vector3(-16.0, 2.5, 0.0), 1.0, 5.0, 32.0, rl.BLUE)
   rl.DrawCube(rl.Vector3(16.0, 2.5, 0.0), 1.0, 5.0, 32.0, rl.LIME)
   rl.DrawCube(rl.Vector3(0.0, 2.5, 16.0), 32.0, 5.0, 1.0, rl.GOLD)
-  
+    
   for i = 1, MAX_COLUMNS, 1 do
     rl.DrawCube(positions[i], 2.0, heights[i], 2.0, colors[i])
     rl.DrawCubeWires(positions[i], 2.0, heights[i], 2.0, rl.MAROON)

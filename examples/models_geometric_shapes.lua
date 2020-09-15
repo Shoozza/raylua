@@ -5,7 +5,7 @@ local screenHeight = 450
 
 rl.InitWindow(screenWidth, screenHeight, "raylib [models] example - geometric shapes");
 
-camera = rl.Camera()
+local camera = rl.Camera()
 camera.position = rl.Vector3(0.0, 10.0, 10.0)
 camera.target = rl.Vector3(0.0, 0.0, 0.0)
 camera.up = rl.Vector3(0.0, 1.0, 0.0)

@@ -12,7 +12,7 @@ local moonOrbitRadius = 1.5
 
 rl.InitWindow(screenWidth, screenHeight, "raylib [models] example - rlgl module usage with push/pop matrix transformations")
 
-camera = rl.Camera()
+local camera = rl.Camera()
 camera.position = rl.Vector3(16.0, 16.0, 16.0)
 camera.target = rl.Vector3(0.0, 0.0, 0.0)
 camera.up = rl.Vector3(0.0, 1.0, 0.0)
@@ -22,7 +22,6 @@ camera.type = rl.CAMERA_PERSPECTIVE
 rl.SetCameraMode(camera, rl.CAMERA_FREE)
 
 local rotationSpeed = 0.2
-
 local earthRotation = 0.0
 local earthOrbitRotation = 0.0
 local moonRotation = 0.0
@@ -71,7 +70,6 @@ end
 
 
 while not rl.WindowShouldClose() do
-  
   rl.UpdateCamera(camera)
 
   earthRotation = earthRotation + (5.0 * rotationSpeed)
@@ -80,9 +78,8 @@ while not rl.WindowShouldClose() do
   moonOrbitRotation = moonOrbitRotation + (8.0 * rotationSpeed)
         
   rl.BeginDrawing()
-  
   rl.ClearBackground(rl.RAYWHITE)
-
+  
   rl.BeginMode3D(camera)
 
   rl.rlPushMatrix()
