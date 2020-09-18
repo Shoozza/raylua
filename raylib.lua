@@ -1,6 +1,6 @@
 -- Written by Rabia Alhaffar in 12/August/2020
 -- raylua,Cross-Platform, Modern, And updated LuaJIT bindings for raylib library, Written by me from scratch.
--- Latest update: 20/August/2020 at 10:41 PM
+-- Latest update: 18/September/2020 at 1:45 PM
 
 ffi = require("ffi")   -- For bindings,We will use LuaJIT FFI,And getting OS to load library file also
 
@@ -28,12 +28,12 @@ if ffi.os == "Windows" then
     lib = "libraylib32.dll"
   end
 elseif ffi.os == "OSX" then
-  lib = "libraylib.dylib"
+  lib = "./libraylib.dylib"
 else
   if ffi.arch == "x64" then
-    lib = "libraylib64.so"
+    lib = "./libraylib64.so"
   else
-    lib = "libraylib32.so"
+    lib = "./libraylib32.so"
   end
 end
 
