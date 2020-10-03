@@ -59,9 +59,11 @@ For examples that binded see [here](https://github.com/Rabios/raylua/blob/master
 
 See [`compatibility.md`](https://github.com/Rabios/raylua/blob/master/compatibility.md) for info about this.
 
-### Using physac and raygui
+### Using raygui and physac
 
-I offered standalone bindings for [raygui](https://github.com/raysan5/raygui) and [physac](https://github.com/victorfisac/physac), But to use them you might need to compile them someway, Using gcc or clang is okay!
+I offered standalone bindings for [raygui](https://github.com/raysan5/raygui) and [physac](https://github.com/victorfisac/physac), But to use them you might need to compile them someway, Using GCC or LLVM Clang is okay!
+
+> NOTE: You need to require raylib before requiring raygui or physac.
 
 ### Autocompletion
 
