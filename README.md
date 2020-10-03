@@ -11,6 +11,8 @@ Cross-Platform, Modern, And updated LuaJIT bindings for raylib library, Written 
 3. raylib easings (easings.h)
 4. rlights (raylib.lights)
 5. raymath
+6. raygui
+7. physac
 
 ### Supports
 
