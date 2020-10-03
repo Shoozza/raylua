@@ -57,6 +57,10 @@ For examples that binded see [here](https://github.com/Rabios/raylua/blob/master
 
 See [`compatibility.md`](https://github.com/Rabios/raylua/blob/master/compatibility.md) for info about this.
 
+### Using physac and raygui
+
+I offered standalone bindings for [raygui](https://github.com/raysan5/raygui) and [physac](https://github.com/victorfisac/physac), But to use them you might need to compile them someway, Using gcc or clang is okay!
+
 ### Autocompletion
 
 I finally did autocompletion for raylib Lua/LuaJIT bindings to use in ZeroBrane Studio,See [here](https://github.com/Rabios/raylua/blob/master/zerobrane/README.md) about that and how to use it.
