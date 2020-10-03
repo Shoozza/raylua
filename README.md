@@ -1,8 +1,6 @@
 # raylua
 
-<div align="center">
-    <img src="https://github.com/Rabios/raylua/blob/master/raylua.png">
-</div>
+<img src="https://github.com/Rabios/raylua/blob/master/raylua.png">
 <br>
 
 Cross-Platform, Modern, And updated LuaJIT bindings for raylib library, Written by me from scratch.
