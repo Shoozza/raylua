@@ -1,0 +1,33 @@
+return {
+  _NAME = "raylua",
+  _URL = "https://github.com/Rabios/raylua",
+  _LICENSE = "MIT (X11)",
+  _CODENAME = "raylua",
+  _AUTHOR = "Rabia Alhaffar",
+  _VERSION = "1.0",
+  _BRANCH = "master",
+  _APP = false,
+  description = "Cross-Platform, Modern, And updated LuaJIT bindings for raylib library.",
+  lib = {
+    src = {
+      "raylib.lua",
+	  "raygui.lua",
+	  "physac.lua",
+    },
+	shared = {
+	  "libraylib32.dll",
+	  "libraylib64.dll",
+	  "libraylib32.so",
+	  "libraylib64.so",
+	  "libraylib.dylib",
+	  "libraylib64_android_intel.so",
+	  "libraylib64_android_armaebi.so"
+	},
+	resources = {
+	  "raylua.png"
+	},
+	license = "LICENSE.txt",
+	readme = "README.md"
+    main = "raylib.lua",
+  }
+}
