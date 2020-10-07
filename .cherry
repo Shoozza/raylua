@@ -27,7 +27,7 @@ return {
 	  "raylua.png"
 	},
 	license = "LICENSE.txt",
-	readme = "README.md"
+	readme = "README.md",
     main = "raylib.lua",
   }
 }
