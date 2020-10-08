@@ -26,6 +26,8 @@ return {
 	resources = {
 	  "raylua.png"
 	},
+    license = "LICENSE.txt",
+    readme = "README.md",
     main = "raylib.lua",
   }
 }
