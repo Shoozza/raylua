@@ -69,6 +69,17 @@ I offered standalone bindings for [raygui](https://github.com/raysan5/raygui) an
 
 I finally did autocompletion for raylib Lua/LuaJIT bindings to use in ZeroBrane Studio,See [here](https://github.com/Rabios/raylua/blob/master/zerobrane/README.md) about that and how to use it.
 
+### Using this on cherry
+
+I'm working on package manager called [cherry](https://github.com/Rabios/cherry), And you can use it to install raylua as package.
+
+```
+cherry new D:\cherry-raylua-game
+cherry add Rabios/raylua D:\cherry-raylua-game
+```
+
+Then edit main file of package in directory `D:\cherry-raylua-game` and require raylib with writing game code!
+
 ### Running this on PUC-RIO Lua (Not LuaJIT)
 
 If you use PUC-RIO Lua (Not LuaJIT), You have to install luaffi rock with luarocks!
