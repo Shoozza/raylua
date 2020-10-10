@@ -1,8 +1,8 @@
 -- Written by Rabia Alhaffar in 12/August/2020
--- raylua,Cross-Platform, Modern, And updated LuaJIT bindings for raylib library, Written by me from scratch.
+-- raylua, Cross-Platform, Modern, And updated LuaJIT bindings for raylib library, Written by me from scratch.
 -- Latest update: 18/September/2020 at 1:45 PM
 
-ffi = require("ffi")   -- For bindings,We will use LuaJIT FFI,And getting OS to load library file also
+local ffi = require("ffi")   -- We will use LuaJIT FFI for bindings, And to get OS and architecture to load library file!
 
 -- null implementation
 NUL = "\0"
@@ -12,7 +12,7 @@ end
 
 -- For SetTraceLogCallback function, We defined vsnprintf from C
 ffi.cdef([[
-  int vsnprintf(char *, size_t, const char *, va_list);  
+  int vsnprintf(char *, size_t, const char *, va_list);
 ]])
   
 -- For not throwing errors cause of duplicating when using other LuaJIT bindings
@@ -1694,9 +1694,9 @@ float EaseElasticOut(float t, float b, float c, float d);
 float EaseElasticInOut(float t, float b, float c, float d);
 ]])
 
-raylib = ffi.load(lib)
-mt = { __index = raylib }
-rl = setmetatable({}, mt)
+local raylib = ffi.load(lib)
+local mt = { __index = raylib }
+local rl = setmetatable({}, mt)
 
 -- Some definitions moved to here by Lua code, This is a direct port of the code
 rl.PI = 3.14159265358979323846
@@ -1786,7 +1786,7 @@ rl.lightsCount = 0 -- Current amount of created lights
 
 -- Defines a light and get locations from PBR shader
 rl.CreateLight = function(type, pos, targ, color, shader)
-  light = ffi.new("Light")
+  local light = ffi.new("Light")
   if rl.lightsCount < rl.MAX_LIGHTS then
     light.enabled = true
     light.type = type
