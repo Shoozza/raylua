@@ -1,15 +1,9 @@
 -- Written by Rabia Alhaffar in 12/August/2020
 -- raylua, Cross-Platform, Modern, And updated LuaJIT bindings for raylib library, Written by me from scratch.
--- Latest update: 10/October/2020 at 11:25 AM
+-- Latest update: 10/October/2020 at 11:34 AM
 local ffi = require("ffi")   -- We will use LuaJIT FFI for bindings, And to get OS and architecture to load library file!
 local arch = ffi.arch
 local sys = ffi.os
-
--- null implementation
-NUL = "\0"
-function NULL(v)
-  return v == nil
-end
 
 -- For SetTraceLogCallback function, We defined vsnprintf from C
 ffi.cdef([[
@@ -1698,6 +1692,10 @@ float EaseElasticInOut(float t, float b, float c, float d);
 local raylib = ffi.load(lib)
 local mt = { __index = raylib }
 local rl = setmetatable({}, mt)
+
+-- null implementation
+rl.NUL = "\0"
+rl.NULL = function(v) return v == nil end
 
 -- Some definitions moved to here by Lua code, This is a direct port of the code
 rl.PI = 3.14159265358979323846
