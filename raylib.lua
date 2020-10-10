@@ -1,8 +1,9 @@
 -- Written by Rabia Alhaffar in 12/August/2020
 -- raylua, Cross-Platform, Modern, And updated LuaJIT bindings for raylib library, Written by me from scratch.
--- Latest update: 18/September/2020 at 1:45 PM
-
+-- Latest update: 10/October/2020 at 11:25 AM
 local ffi = require("ffi")   -- We will use LuaJIT FFI for bindings, And to get OS and architecture to load library file!
+local arch = ffi.arch
+local sys = ffi.os
 
 -- null implementation
 NUL = "\0"
@@ -21,16 +22,16 @@ if not (type(rl) == "userdata" or type(rl) == "table") then
 local lib = ""  -- Keep this empty so it changed when this file loaded/required directly
 
 -- Get OS and architecture to set library file to use
-if ffi.os == "Windows" then
-  if ffi.arch == "x64" then
+if sys == "Windows" then
+  if arch == "x64" then
     lib = "libraylib64.dll"
   else
     lib = "libraylib32.dll"
   end
-elseif ffi.os == "OSX" then
+elseif sys == "OSX" then
   lib = "./libraylib.dylib"
 else
-  if ffi.arch == "x64" then
+  if arch == "x64" then
     lib = "./libraylib64.so"
   else
     lib = "./libraylib32.so"
@@ -1794,11 +1795,11 @@ rl.CreateLight = function(type, pos, targ, color, shader)
     light.target = targ
     light.color = color
 
-    enabledName = "lights[x].enabled\0"
-    typeName = "lights[x].type\0"
-    posName = "lights[x].position\0"
-    targetName = "lights[x].target\0"
-    colorName = "lights[x].color\0"
+    local enabledName = "lights[x].enabled\0"
+    local typeName = "lights[x].type\0"
+    local posName = "lights[x].position\0"
+    local targetName = "lights[x].target\0"
+    local colorName = "lights[x].color\0"
         
     enabledName:gsub("x", "0"..lightsCount)
     typeName:gsub("x", "0"..lightsCount)
