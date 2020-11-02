@@ -174,55 +174,6 @@ Vector2 GetPhysicsShapeVertex(PhysicsBody body, int vertex);                    
 void SetPhysicsBodyRotation(PhysicsBody body, float radians);                                     // Sets physics body shape transform based on radians parameter
 void DestroyPhysicsBody(PhysicsBody body);                                                        // Unitializes and destroy a physics body
 void ClosePhysics(void);                                                                          // Unitializes physics pointers and closes physics loop thread
-
-/***********************************************************************************
-*
-*   PHYSAC IMPLEMENTATION
-*
-************************************************************************************/
-//----------------------------------------------------------------------------------
-// Module Internal Functions Declaration
-//----------------------------------------------------------------------------------
-static int FindAvailableBodyIndex();                                                                        // Finds a valid index for a new physics body initialization
-static PolygonData CreateRandomPolygon(float radius, int sides);                                            // Creates a random polygon shape with max vertex distance from polygon pivot
-static PolygonData CreateRectanglePolygon(Vector2 pos, Vector2 size);                                       // Creates a rectangle polygon shape based on a min and max positions
-static void *PhysicsLoop(void *arg);                                                                        // Physics loop thread function
-static void PhysicsStep(void);                                                                              // Physics steps calculations (dynamics, collisions and position corrections)
-static int FindAvailableManifoldIndex();                                                                    // Finds a valid index for a new manifold initialization
-static PhysicsManifold CreatePhysicsManifold(PhysicsBody a, PhysicsBody b);                                 // Creates a new physics manifold to solve collision
-static void DestroyPhysicsManifold(PhysicsManifold manifold);                                               // Unitializes and destroys a physics manifold
-static void SolvePhysicsManifold(PhysicsManifold manifold);                                                 // Solves a created physics manifold between two physics bodies
-static void SolveCircleToCircle(PhysicsManifold manifold);                                                  // Solves collision between two circle shape physics bodies
-static void SolveCircleToPolygon(PhysicsManifold manifold);                                                 // Solves collision between a circle to a polygon shape physics bodies
-static void SolvePolygonToCircle(PhysicsManifold manifold);                                                 // Solves collision between a polygon to a circle shape physics bodies
-static void SolveDifferentShapes(PhysicsManifold manifold, PhysicsBody bodyA, PhysicsBody bodyB);           // Solve collision between two different types of shapes
-static void SolvePolygonToPolygon(PhysicsManifold manifold);                                                // Solves collision between two polygons shape physics bodies
-static void IntegratePhysicsForces(PhysicsBody body);                                                       // Integrates physics forces into velocity
-static void InitializePhysicsManifolds(PhysicsManifold manifold);                                           // Initializes physics manifolds to solve collisions
-static void IntegratePhysicsImpulses(PhysicsManifold manifold);                                             // Integrates physics collisions impulses to solve collisions
-static void IntegratePhysicsVelocity(PhysicsBody body);                                                     // Integrates physics velocity into position and forces
-static void CorrectPhysicsPositions(PhysicsManifold manifold);                                              // Corrects physics bodies positions based on manifolds collision information
-static float FindAxisLeastPenetration(int *faceIndex, PhysicsShape shapeA, PhysicsShape shapeB);            // Finds polygon shapes axis least penetration
-static void FindIncidentFace(Vector2 *v0, Vector2 *v1, PhysicsShape ref, PhysicsShape inc, int index);      // Finds two polygon shapes incident face
-static int Clip(Vector2 normal, float clip, Vector2 *faceA, Vector2 *faceB);                                // Calculates clipping based on a normal and two faces
-static bool BiasGreaterThan(float valueA, float valueB);                                                    // Check if values are between bias range
-static Vector2 TriangleBarycenter(Vector2 v1, Vector2 v2, Vector2 v3);                                      // Returns the barycenter of a triangle given by 3 points
-
-static void InitTimer(void);                                                                                // Initializes hi-resolution MONOTONIC timer
-static uint64_t GetTimeCount(void);                                                                         // Get hi-res MONOTONIC time measure in mseconds
-static double GetCurrentTime(void);                                                                         // Get current time measure in milliseconds
-
-// Math functions
-static Vector2 MathCross(float value, Vector2 vector);                                                      // Returns the cross product of a vector and a value
-static float MathCrossVector2(Vector2 v1, Vector2 v2);                                                      // Returns the cross product of two vectors
-static float MathLenSqr(Vector2 vector);                                                                    // Returns the len square root of a vector
-static float MathDot(Vector2 v1, Vector2 v2);                                                               // Returns the dot product of two vectors
-static float DistSqr(Vector2 v1, Vector2 v2);                                                        // Returns the square root of distance between two vectors
-static void MathNormalize(Vector2 *vector);                                                                 // Returns the normalized values of a vector
-static Mat2 Mat2Radians(float radians);                                                                     // Creates a matrix 2x2 from a given radians value
-static void Mat2Set(Mat2 *matrix, float radians);                                                           // Set values from radians to a created matrix 2x2
-static inline Mat2 Mat2Transpose(Mat2 matrix);                                                              // Returns the transpose of a given matrix 2x2
-static Vector2 Mat2MultiplyVector2(Mat2 matrix, Vector2 vector);                                     // Multiplies a vector by a matrix 2x2
 ]])
 
 physac = ffi.load("physac")
