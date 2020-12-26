@@ -79,16 +79,6 @@ ffi.cdef([[
 *
 **********************************************************************************************/
 //----------------------------------------------------------------------------------
-// Defines and Macros
-//----------------------------------------------------------------------------------
-enum {
-    PHYSAC_MAX_BODIES               = 64,
-    PHYSAC_MAX_MANIFOLDS            = 4096,
-    PHYSAC_MAX_VERTICES             = 24,
-    PHYSAC_CIRCLE_VERTICES          = 24,
-    PHYSAC_COLLISION_ITERATIONS     = 100
-};
-//----------------------------------------------------------------------------------
 // Types and Structures Definition
 //----------------------------------------------------------------------------------
 typedef enum PhysicsShapeType { PHYSICS_CIRCLE, PHYSICS_POLYGON } PhysicsShapeType;
@@ -106,8 +96,8 @@ typedef struct Mat2 {
 
 typedef struct PolygonData {
     unsigned int vertexCount;                   // Current used vertex and normals count
-    Vector2 positions[PHYSAC_MAX_VERTICES];     // Polygon vertex positions vectors
-    Vector2 normals[PHYSAC_MAX_VERTICES];       // Polygon vertex normals vectors
+    Vector2 positions[24];     									// Polygon vertex positions vectors
+    Vector2 normals[24];       									// Polygon vertex normals vectors
 } PolygonData;
 
 typedef struct PhysicsShape {
@@ -152,36 +142,66 @@ typedef struct PhysicsManifoldData {
     float dynamicFriction;                      // Mixed dynamic friction during collision
     float staticFriction;                       // Mixed static friction during collision
 } PhysicsManifoldData, *PhysicsManifold;
+
 //----------------------------------------------------------------------------------
 // Module Functions Declaration
 //----------------------------------------------------------------------------------
-void InitPhysics(void);                                                                           // Initializes physics values, pointers and creates physics loop thread
-void RunPhysicsStep(void);                                                                        // Run physics step, to be used if PHYSICS_NO_THREADS is set in your main loop
-void SetPhysicsTimeStep(double delta);                                                            // Sets physics fixed time step in milliseconds. 1.666666 by default
-bool IsPhysicsEnabled(void);                                                                      // Returns true if physics thread is currently enabled
-void SetPhysicsGravity(float x, float y);                                                         // Sets physics global gravity force
-PhysicsBody CreatePhysicsBodyCircle(Vector2 pos, float radius, float density);                    // Creates a new circle physics body with generic parameters
-PhysicsBody CreatePhysicsBodyRectangle(Vector2 pos, float width, float height, float density);    // Creates a new rectangle physics body with generic parameters
-PhysicsBody CreatePhysicsBodyPolygon(Vector2 pos, float radius, int sides, float density);        // Creates a new polygon physics body with generic parameters
-void PhysicsAddForce(PhysicsBody body, Vector2 force);                                            // Adds a force to a physics body
-void PhysicsAddTorque(PhysicsBody body, float amount);                                            // Adds an angular force to a physics body
-void PhysicsShatter(PhysicsBody body, Vector2 position, float force);                             // Shatters a polygon shape physics body to little physics bodies with explosion force
-int GetPhysicsBodiesCount(void);                                                                  // Returns the current amount of created physics bodies
-PhysicsBody GetPhysicsBody(int index);                                                            // Returns a physics body of the bodies pool at a specific index
-int GetPhysicsShapeType(int index);                                                               // Returns the physics body shape type (PHYSICS_CIRCLE or PHYSICS_POLYGON)
-int GetPhysicsShapeVerticesCount(int index);                                                      // Returns the amount of vertices of a physics body shape
-Vector2 GetPhysicsShapeVertex(PhysicsBody body, int vertex);                                      // Returns transformed position of a body shape (body position + vertex transformed position)
-void SetPhysicsBodyRotation(PhysicsBody body, float radians);                                     // Sets physics body shape transform based on radians parameter
-void DestroyPhysicsBody(PhysicsBody body);                                                        // Unitializes and destroy a physics body
-void ClosePhysics(void);                                                                          // Unitializes physics pointers and closes physics loop thread
+// Initializes physics values, pointers and creates physics loop thread
+void InitPhysics(void);
+
+// Returns true if physics thread is currently enabled
+bool IsPhysicsEnabled(void);
+
+// Sets physics global gravity force
+void SetPhysicsGravity(float x, float y);
+
+// Creates a new circle physics body with generic parameters
+PhysicsBody CreatePhysicsBodyCircle(Vector2 pos, float radius, float density);
+
+// Creates a new rectangle physics body with generic parameters
+PhysicsBody CreatePhysicsBodyRectangle(Vector2 pos, float width, float height, float density);
+
+// Creates a new polygon physics body with generic parameters
+PhysicsBody CreatePhysicsBodyPolygon(Vector2 pos, float radius, int sides, float density);
+
+// Adds a force to a physics body
+void PhysicsAddForce(PhysicsBody body, Vector2 force);
+
+// Adds a angular force to a physics body
+void PhysicsAddTorque(PhysicsBody body, float amount);
+
+// Shatters a polygon shape physics body to little physics bodies with explosion force
+void PhysicsShatter(PhysicsBody body, Vector2 position, float force);
+
+// Returns the current amount of created physics bodies
+int GetPhysicsBodiesCount(void);
+
+// Returns a physics body of the bodies pool at a specific index
+PhysicsBody GetPhysicsBody(int index);
+
+// Returns the physics body shape type (PHYSICS_CIRCLE or PHYSICS_POLYGON)
+int GetPhysicsShapeType(int index);
+
+// Returns the amount of vertices of a physics body shape
+int GetPhysicsShapeVerticesCount(int index);
+
+// Returns transformed position of a body shape (body position + vertex transformed position)
+Vector2 GetPhysicsShapeVertex(PhysicsBody body, int vertex);
+
+// Sets physics body shape transform based on radians parameter
+void SetPhysicsBodyRotation(PhysicsBody body, float radians);
+
+// Unitializes and destroy a physics body
+void DestroyPhysicsBody(PhysicsBody body);
+
+// Unitializes physics pointers and closes physics loop thread
+void ClosePhysics(void);
 ]])
 
 physac = ffi.load("physac")
 local mt = { __index = physac }
 local ph = setmetatable({}, mt)
 
-ph.PHYSAC_PENETRATION_ALLOWANCE    = 0.05
-ph.PHYSAC_PENETRATION_CORRECTION   = 0.4
 ph.PHYSAC_PI                       = 3.14159265358979323846
 ph.PHYSAC_DEG2RAD                  = ph.PHYSAC_PI / 180.0
 

@@ -4,10 +4,10 @@ return {
   _LICENSE = "MIT (X11)",
   _CODENAME = "raylua",
   _AUTHOR = "Rabia Alhaffar",
-  _VERSION = "1.0",
+  _VERSION = "1.1",
   _BRANCH = "master",
   _APP = false,
-  description = "Cross-Platform, Modern, And updated LuaJIT bindings for raylib library.",
+  description = "Cross-Platform, Modern, Handwritten, Updated LuaJIT bindings for raylib library.",
   lib = {
     src = {
       "raylib.lua",
@@ -17,8 +17,7 @@ return {
 	shared = {
 	  "libraylib32.dll",
 	  "libraylib64.dll",
-	  "libraylib32.so",
-	  "libraylib64.so",
+	  "libraylib.so",
 	  "libraylib.dylib",
 	  "libraylib64_android_intel.so",
 	  "libraylib64_android_armaebi.so"
@@ -26,8 +25,6 @@ return {
 	resources = {
 	  "raylua.png"
 	},
-    license = "LICENSE.txt",
-    readme = "README.md",
-    main = "raylib.lua",
+	main = "raylib.lua"
   }
 }

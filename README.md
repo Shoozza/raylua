@@ -1,8 +1,7 @@
-# raylua
-
-<img src="https://github.com/Rabios/raylua/blob/master/raylua.png">
-
-Cross-Platform, Modern, And updated LuaJIT bindings for raylib library, Written by me from scratch.
+<div align="center">
+	<img src="https://github.com/Rabios/raylua/blob/master/raylua.png">
+	<p>Cross-Platform, Modern, Handwritten, Updated LuaJIT bindings for raylib library.</p>
+</div>
 
 ### Contains
 
@@ -11,19 +10,21 @@ Cross-Platform, Modern, And updated LuaJIT bindings for raylib library, Written 
 3. raylib easings (easings.h)
 4. rlights (raylib.lights)
 5. raymath
-6. raygui (standalone)
-7. physac (standalone)
+6. physac
+7. raygui
+
+> NOTE: You need to build shared lib of physac and raygui.
 
 ### Supports
 
 1. Microsoft Windows (32-bit and 64-bit)
-2. Mac (32-bit and 64-bit)
-3. Linux (32-bit and 64-bit)
-4. Android (64-bit), Versions are ARM64 (armaebi) and x86_64 (Intel-based)
+2. Mac (64-bit)
+3. Linux (64-bit)
+4. Android (64-bit), Versions are ARM64 (ARM) and x86_64 (Intel)
 
 ### Example
 
-Link `raylib.lua` (Via require or dofile),Then start coding!
+Link `raylib.lua` (Via require or dofile), Then start coding!
 
 ```lua
 local rl = require("raylib")
@@ -53,32 +54,15 @@ For examples that binded see [here](https://github.com/Rabios/raylua/blob/master
 1. This is a direct bindings of the original C version,It implements the same content.
 2. Hacks and fallbacks of raylib 2 implemented from original C version, raylib 2 functions will still works if you use raylib 3.
 
-> And i didn't copy-pasted from any gist,Even that gist made by Alexander Matz,All bindings were written by me.
+> And i didn't copy-pasted from any gist, Even that gist made by Alexander Matz, All bindings were written by me.
 
 ### Compatibility
 
 See [`compatibility.md`](https://github.com/Rabios/raylua/blob/master/compatibility.md) for info about this.
 
-### Using raygui and physac
-
-I offered standalone bindings for [raygui](https://github.com/raysan5/raygui) and [physac](https://github.com/victorfisac/physac), But to use them you might need to compile them someway, Using GCC or LLVM Clang is okay!
-
-> NOTE: You need to require raylib before requiring raygui or physac.
-
 ### Autocompletion
 
 I finally did autocompletion for raylib Lua/LuaJIT bindings to use in ZeroBrane Studio,See [here](https://github.com/Rabios/raylua/blob/master/zerobrane/README.md) about that and how to use it.
-
-### Using this on cherry
-
-I'm working on package manager called [cherry](https://github.com/Rabios/cherry), And you can use it to install raylua as package.
-
-```
-cherry new D:\cherry-raylua-game
-cherry add Rabios/raylua D:\cherry-raylua-game
-```
-
-Then edit main file of package in directory `D:\cherry-raylua-game` and require raylib with writing game code!
 
 ### Running this on PUC-RIO Lua (Not LuaJIT)
 
@@ -92,7 +76,7 @@ However, I don't guarantee that it works same as LuaJIT FFI.
 
 I did custom version using [TSnake41's raylib-lua](https://github.com/TSnake41/raylib-lua), Currently works only on 64-bit versions of Microsoft Windows and 64-bit versions of LuaJIT.
 
-It adds Physac support with my bindings,To get it see [tsnake41-raylib-lua](https://github.com/Rabios/raylua/blob/master/tsnake41-raylib-lua) folder.
+To get it see [tsnake41-raylib-lua](https://github.com/Rabios/raylua/blob/master/tsnake41-raylib-lua) folder.
 
 ### Special thanks
 
