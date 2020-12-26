@@ -1,12 +1,12 @@
--- Started by Rabia Alhaffar in 14/August/2020
--- Finished in 16/August/2020
--- Latest version: v0.1, 16/August/2020
--- Autocompletion for my bindings/TSnake41's LuaJIT bindings/Alexander Matz's bindings
--- Sources: https://www.raylib.com/cheatsheet/cheatsheet.html, And bindings headers
+-- Written by Rabia Alhaffar in 14/August/2020
+-- raylib 3.5 LuaJIT bindings for Zerobrane Studio
+-- Latest Update: 26/August/2020
+-- Works with TSnake41's bindings, raylua, Alexander Matz's bindings
+-- Sources: https://www.raylib.com/cheatsheet/cheatsheet.html, And bindings headers!
 return {
   rl = {
     type = "lib",
-    description = "raylib bindings for Lua",
+    description = "raylib 3.5 bindings for LuaJIT",
     childs = {
       -- module: core
       -- Window-related functions
@@ -38,12 +38,68 @@ return {
         returns = "(boolean)"
       },
       
+			IsWindowFocused = {
+				type = "function",
+				description = "Check if window is currently focused (only PLATFORM_DESKTOP)",
+				args = "()",
+				returns = "(boolean)"
+			},
+			
       IsWindowMinimized = {
         type = "function",
-        description = "Check if window has been minimized (or lost focus)",
+        description = "Check if window has been minimized (only PLATFORM_DESKTOP)",
         args = "()",
         returns = "(boolean)"
       },
+			
+			IsWindowMaximized = {
+        type = "function",
+        description = "Check if window has been maximized (only PLATFORM_DESKTOP)",
+        args = "()",
+        returns = "(boolean)"
+      },
+			
+			MaximizeWindow = {
+				type = "function",
+				description = "Set window state: maximized, if resizable (only PLATFORM_DESKTOP)",
+				args = "()",
+				returns = "(void)"
+			},
+			
+			MinimizeWindow = {
+				type = "function",
+				description = "Set window state: minimized, if resizable (only PLATFORM_DESKTOP)",
+				args = "()",
+				returns = "(void)"
+			},
+			
+			RestoreWindow = {
+				type = "function",
+				description = "Set window state: not minimized/maximized (only PLATFORM_DESKTOP)",
+				args = "()",
+				returns = "(void)"
+			},
+			
+			IsWindowState = {
+				type = "function",
+				description = "Check if one specific window flag is enabled",
+				args = "(flag: number)",
+				returns = "(boolean)"
+			},
+			
+			SetWindowState = {
+				type = "function",
+				description = "Set window configuration state using flags",
+				args = "(flags: number)",
+				returns = "(boolean)"
+			},
+			
+			ClearWindowState = {
+				type = "function",
+				description = "Clear window configuration state flags",
+				args = "()",
+				returns = "(boolean)"
+			},
       
       IsWindowResized = {
         type = "function",
@@ -69,27 +125,6 @@ return {
       ToggleFullscreen = {
         type = "function",
         description = "Toggle fullscreen mode (only PLATFORM_DESKTOP)",
-        args = "()",
-        returns = "(void)"
-      },
-      
-      UnhideWindow = {
-        type = "function",
-        description = "Show the window",
-        args = "()",
-        returns = "(void)"
-      },
-      
-      ShowWindow = {
-        type = "function",
-        description = "Show the window",
-        args = "()",
-        returns = "(void)"
-      },
-      
-      HideWindow = {
-        type = "function",
-        description = "Hide the window",
         args = "()",
         returns = "(void)"
       },
@@ -163,6 +198,13 @@ return {
         args = "()",
         returns = "(number)"
       },
+			
+			GetMonitorPosition = {
+				type = "function",
+				description = "Get specified monitor position",
+				args = "(monitor: number)",
+				returns = "(Vector2)"
+			},
       
       GetMonitorWidth = {
         type = "function",
@@ -445,7 +487,7 @@ return {
       ColorFromHSV = {
         type = "function",
         description = "Returns a Color from HSV values",
-        args = "(hsv: Vector3)",
+        args = "(hue: number, saturation: number, value: number)",
         returns = "(Color)"
       },
       
@@ -473,7 +515,7 @@ return {
       -- Misc. functions
       SetConfigFlags = {
         type = "function",
-        description = "Setup window configuration flags (view FLAGS)",
+        description = "Setup init configuration flags (view FLAGS)",
         args = "(flags: number)",
         retrurns = "(void)"
       },
@@ -527,12 +569,19 @@ return {
         args = "(fileName: string, bytesRead: number)",
         returns = "(string)"
       },
+			
+			UnloadFileData = {
+        type = "function",
+        description = "Unload file data allocated by LoadFileData()",
+        args = "(fileData: void)",
+        returns = "(string)"
+      },
       
       SaveFileData = {
         type = "function",
-        description = "Save data to file from byte array (write)",
+        description = "Save data to file from byte array (write), returns true on success",
         args = "(fileName: string, data: void, bytesToWrite: number)",
-        returns = "(void)"
+        returns = "(boolean)"
       },
       
       LoadFileText = {
@@ -541,6 +590,13 @@ return {
         args = "(fileName: string)",
         returns = "(string)"
       },
+			
+			UnloadFileText = {
+				type = "function",
+				description = "Unload file text data allocated by LoadFileText()",
+				args = "(text: String)",
+				returns = "(void)"
+			},
       
       LoadText = {
         type = "function",
@@ -552,9 +608,9 @@ return {
       
       SaveFileText = {
         type = "function",
-        description = "Save text data to file (write), string must be '\0' terminated",
+        description = "Save text data to file (write), string must be '\0' terminated, returns true on success",
         args = "(fileName: string, text: string)",
-        returns = "(void)"
+        returns = "(boolean)"
       },
       
       FileExists = {
@@ -566,10 +622,17 @@ return {
       
       IsFileExtension = {
         type = "function",
-        description = "Check file extension",
+        description = "Check file extension (including point: .png, .wav)",
         args = "(fileName: string, ext: string)",
         returns = "(boolean)"
       },
+			
+			GetFileExtension = {
+        type = "function",
+        description = "Get pointer to extension for a filename string (including point: '.png')",
+        args = "(fileName: string)",
+        returns = "(string)"
+			},
       
       DirectoryExists = {
         type = "function",
@@ -636,7 +699,7 @@ return {
       
       ChangeDirectory = {
         type = "function",
-        description = "Change working directory, returns true if success",
+        description = "Change working directory, return true on success",
         args = "(dir: string)",
         returns = "(boolean)"
       },
@@ -671,14 +734,14 @@ return {
       
       CompressData = {
         type = "function",
-        description = "Compress data (DEFLATE algorythm)",
+        description = "Compress data (DEFLATE algorithm)",
         args = "(data: string, dataLength: number, compDataLength: number)",
         returns = "(string)"
       },
       
       DecompressData = {  
         type = "function",
-        description = "Decompress data (DEFLATE algorythm)",
+        description = "Decompress data (DEFLATE algorithm)",
         args = "(compData: string, compDataLength: number, dataLength: number)",
         returns = "(string)"
       },
@@ -737,7 +800,14 @@ return {
       
       GetKeyPressed = {
         type = "function",
-        description = "Get latest key pressed",
+        description = "Get key pressed (keycode), call it multiple times for keys queued",
+        args = "()",
+        returns = "(number)"
+      },
+			
+			GetCharPressed = {
+        type = "function",
+        description = "Get char pressed (unicode), call it multiple times for chars queued",
         args = "()",
         returns = "(number)"
       },
@@ -897,6 +967,20 @@ return {
         args = "()",
         returns = "(number)"
       },
+			
+			GetMouseCursor = {
+				type = "function",
+				description = "Returns mouse cursor if (MouseCursor enum)",
+				args = "()",
+				returns = "(number)"
+			},
+			
+			SetMouseCursor = {
+				type = "function",
+				description = "Set mouse cursor",
+				args = "(cursor: number)",
+				returns = "(void)"
+			},
       
       -- Input-related functions: touch
       GetTouchX = {
@@ -995,28 +1079,28 @@ return {
       SetCameraPanControl = {
         type = "function",
         description = "Set camera pan key to combine with mouse movement (free camera)",
-        args = "(panKey: number)",
+        args = "(keyPan: number)",
         returns = "(void)"
       },
       
       SetCameraAltControl = {
         type = "function",
         description = "Set camera alt key to combine with mouse movement (free camera)",
-        args = "(altKey: number)",
+        args = "(keyAlt: number)",
         returns = "(void)"
       },
       
       SetCameraSmoothZoomControl = {
         type = "function",
         description = "Set camera smooth zoom key to combine with mouse (free camera)",
-        args = "(szKey: number)",
+        args = "(keySmoothZoom: number)",
         returns = "(void)"
       },
       
       SetCameraMoveControls = {
         type = "function",
         description = "Set camera move controls (1st person and 3rd person cameras)",
-        args = "(frontKey: number, backKey: number, rightKey: number, leftKey: number, upKey: number, downKey: number)",
+        args = "(keyFront: number, keyBack: number, keyRight: number, keyLeft: number, keyUp: number, keyDown: number)",
         returns = "(void)"
       },
       
@@ -1063,11 +1147,18 @@ return {
         args = "(startPos: Vector2, endPos: Vector2, thick: number, color: Color)",
         returns = "(void)"
       },
+			
+			DrawLineBezierQuad = {
+        type = "function",
+        description = "Draw line using quadratic bezier curves with a control point",
+        args = "(startPos: Vector2, endPos: Vector2, controlPos: Vector2, thick: number, color: Color)",
+        returns = "(void)"
+      },
       
       DrawLineStrip = {
         type = "function",
         description = "Draw lines sequence",
-        args = "(points: Vector2, numPoints: number, color: Color)",
+        args = "(points: Vector2, pointsCount: number, color: Color)",
         returns = "(void)"
       },
       
@@ -1235,7 +1326,7 @@ return {
       DrawTriangleFan = {
         type = "function",
         description = "Draw a triangle fan defined by points (first vertex is the center)",
-        args = "(points: Vector2, numPoints: number, color: Color)",
+        args = "(points: Vector2, pointsCount: number, color: Color)",
         returns = "(void)"
       },
       
@@ -1309,6 +1400,13 @@ return {
         args = "(point: Vector2, p1: Vector2, p2: Vector2, p3: Vector2)",
         returns = "(boolean)"
       },
+			
+			CheckCollisionLines = {
+				type = "function",
+				description = "Check the collision between two lines defined by two points each, returns collision point by reference",
+				args = "(startPos1: Vector2, endPos1: Vector2, startPos2: Vector2, endPos2: Vector2, collisionPoint: Vector2)",
+				returns = "(boolean)"
+			},
       
       -- module: textures
       -- Image loading functions
@@ -1317,8 +1415,22 @@ return {
         type = "function",
         description = "Load image from file into CPU memory (RAM)",
         args = "(fileName: string)",
-        returns = "(Image)"  
+        returns = "(Image)"
       },
+			
+			LoadImageAnim = {
+        type = "function",
+        description = "Load image from file into CPU memory (RAM)",
+        args = "(fileName: string, frames: number)",
+        returns = "(Image)"
+			},
+			
+			LoadImageFromMemory = {
+        type = "function",
+        description = "Load image from file into CPU memory (RAM)",
+        args = "(fileType: string, fileData: string, dataSize: number)",
+        returns = "(Image)"
+			},
       
       LoadImageEx = {
         type = "function",
@@ -1350,30 +1462,51 @@ return {
       
       ExportImage = {
         type = "function",
-        description = "Export image data to file",
+        description = "Export image data to file, returns true on success",
         args = "(image: Image, fileName: string)",
-        returns = "(void)"
+        returns = "(boolean)"
       },
       
       ExportImageAsCode = {
         type = "function",
-        description = "Export image as code file defining an array of bytes",
+        description = "Export image as code file defining an array of bytes, returns true on success",
         args = "(image: Image, fileName: string)",
-        returns = "(void)"
+        returns = "(boolean)"
       },
       
       GetImageData = {
         type = "function",
-        description = "Get pixel data from image as a Color struct array",
+        description = "Get pixel data from image as a Color struct array (RGBA - 32bit)",
         args = "(image: Image)",
         returns = "(Color)"
       },
-      
-      GetImageDataNormalized = {
+			
+			LoadImageColors = {
         type = "function",
-        description = "Get pixel data from image as Vector4 array (float normalized)",
+        description = "Get pixel data from image as a Color struct array (RGBA - 32bit)",
         args = "(image: Image)",
-        returns = "(Vector4)"
+        returns = "(Color)"
+      },
+			
+			LoadImagePalette = {
+        type = "function",
+        description = "Get pixel data from image as a Color struct array (RGBA - 32bit)",
+        args = "(image: Image, maxPaletteSize: number, colorsCount: number)",
+        returns = "(Color)"
+      },
+			
+			UnloadImageColors = {
+        type = "function",
+        description = "Unload color data loaded with LoadImageColors()",
+        args = "(colors: Color)",
+        returns = "(void)"
+      },
+			
+			UnloadImagePalette = {
+        type = "function",
+        description = "Unload colors palette loaded with LoadImagePalette()",
+        args = "(colors: Color)",
+        returns = "(void)"
       },
       
       -- Image generation functions
@@ -1842,7 +1975,7 @@ return {
       DrawTextureRec = {
         type = "function",
         description = "Draw a part of a texture defined by a rectangle",
-        args = "(texture: Texture2D, sourceRec: Rectangle, position: Vector2, tint: Color)",
+        args = "(texture: Texture2D, source: Rectangle, position: Vector2, tint: Color)",
         returns = "(void)"
       },
       
@@ -1856,14 +1989,21 @@ return {
       DrawTexturePro = {
         type = "function",
         description = "Draw a part of a texture defined by a rectangle with 'pro' parameters",
-        args = "(texture: Texture2D, sourceRec: Rectangle, destRec: Rectangle, origin: Vector2, rotation: number, tint: Color)",
+        args = "(texture: Texture2D, source: Rectangle, dest: Rectangle, origin: Vector2, rotation: number, tint: Color)",
         returns = "(void)"
       },
+			
+			DrawTextureTiled = {
+				type = "function",
+				description = "Draw part of a texture (defined by a rectangle) with rotation and scale tiled into dest.",
+				args = "(texture: Texture2D, source: Rectangle, dest: Rectangle, origin: Vector2, rotation: number, scale: number, tint: Color)",
+				returns = "(void)"
+			},
       
       DrawTextureNPatch = {
         type = "function",
         description = "Draws a texture (or part of it) that stretches or shrinks nicely",
-        args = "(texture: Texture2D, nPatchInfo: NPatchInfo, destRec: Rectangle, origin: Vector2, rotation: number, tint: Color)",
+        args = "(texture: Texture2D, nPatchInfo: NPatchInfo, dest: Rectangle, origin: Vector2, rotation: number, tint: Color)",
         returns = "(void)"
       },
       
@@ -1904,6 +2044,13 @@ return {
         args = "(image: Image, key: Color, firstChar: number)",
         returns = "(Font)"
       },
+			
+			LoadFontFromMemory = {
+				type = "function",
+				description = "",
+				args = "(fileType: string, fileData: byte, dataSize: number, fontSize: number, fontChars: table, charsCount: number)",
+				returns = ""
+			},
       
       LoadFontData = {
         type = "function",
@@ -1923,6 +2070,13 @@ return {
         type = "function",
         description = "Unload Font from GPU memory (VRAM)",
         args = "(font: Font)",
+        returns = "(void)"
+      },
+			
+			UnloadFontData = {
+        type = "function",
+        description = "// Unload font chars info data (RAM)",
+        args = "(chars: CharInfo, charsCount: number)",
         returns = "(void)"
       },
       
@@ -1965,7 +2119,7 @@ return {
       DrawTextCodepoint = {
         type = "function",
         description = "Draw one character (codepoint)",
-        args = "(font: Font, codepoint: number, position: Vector2, scale: number, tint: Color)",
+        args = "(font: Font, codepoint: number, position: Vector2, fontSize: number, tint: Color)",
         returns = "(void)"
       },
       
@@ -2286,7 +2440,14 @@ return {
       
       UnloadModel = {
         type = "function",
-        description = "Unload model from memory (RAM and/or VRAM)",
+        description = "Unload model (including meshes) from memory (RAM and/or VRAM)",
+        args = "(model: Model)",
+        returns = "(void)"
+      },
+			
+			 UnloadModelKeepMeshes = {
+        type = "function",
+        description = "Unload model (but not meshes) from memory (RAM and/or VRAM)",
         args = "(model: Model)",
         returns = "(void)"
       },
@@ -2517,7 +2678,7 @@ return {
       DrawBillboardRec = {
         type = "function",
         description = "Draw a billboard texture defined by sourceRec",
-        args = "(camera: Camera, texture: Texture2D, sourceRec: Rectangle, center: Vector3, size: number, tint: Color)",
+        args = "(camera: Camera, texture: Texture2D, source: Rectangle, center: Vector3, size: number, tint: Color)",
         returns = "(void)"
       },
       
@@ -2525,7 +2686,7 @@ return {
       CheckCollisionSpheres = {
         type = "function",
         description = "Detect collision between two spheres",
-        args = "(centerA: Vector3, radiusA: number, centerB: Vector3, radiusB: number)",
+        args = "(center1: Vector3, radius1: number, center2: Vector3, radius2: number)",
         returns = "(boolean)"
       },
       
@@ -2563,6 +2724,13 @@ return {
         args = "(ray: Ray, box: BoundingBox)",
         returns = "(boolean)"
       },
+			
+			GetCollisionRayMesh = {
+				type = "function",
+				description = "Get collision info between ray and mesh",
+				args = "(ray: Ray, mesh: Mesh, transform: Matrix)",
+				returns = "(RayHitInfo)"
+			},
       
       GetCollisionRayModel = {
         type = "function",
@@ -2657,6 +2825,13 @@ return {
         args = "(shader: Shader, uniformName: string)",
         returns = "(number)"
       },
+			
+			GetShaderLocationAttrib = {
+        type = "function",
+        description = "Get shader attribute location",
+        args = "(shader: Shader, attribName: string)",
+        returns = "(number)"
+      },
       
       SetShaderValue = {
         type = "function",
@@ -2713,6 +2888,34 @@ return {
         args = "()",
         returns = "(Matrix)"
       },
+			
+			GenTextureCubemap = {
+				type = "function",
+				description = "Generate cubemap texture from 2D panorama texture",
+				args = "(shader: Shader, panorama: Texture2D, size: number, format: number)",
+				returns = "(TextureCubemap)"
+			},
+			
+			GenTextureIrradiance = {
+				type = "function",
+				description = "Generate irradiance texture using cubemap data",
+				args = "(shader: Shader, cubemap: TextureCubemap, size: number)",
+				returns = "(TextureCubemap)"
+			},
+			
+			GenTexturePrefilter = {
+				type = "function",
+				description = "Generate prefilter texture using cubemap data",
+				args = "(shader: Shader, cubemap: TextureCubemap, size: number)",
+				returns = "(TextureCubemap)"
+			},
+			
+			GenTextureBRDF = {
+				type = "function",
+				description = "Generate BRDF texture",
+				args = "(shader: Shader, size: number)",
+				returns = "(Texture2D)"
+			},
       
       -- Shading begin/end functions
       BeginShaderMode = {
@@ -2844,6 +3047,13 @@ return {
         args = "(data: void, sampleCount: number, sampleRate: number, sampleSize: number, channels: number)",
         returns = "(Wave)"
       },
+			
+			LoadWaveFromMemory = {
+				type = "function",
+				description = "Load wave from memory buffer, fileType refers to extension: i.e. 'wav'",
+				args = "(fileType: string, fileData: byte, dataSize: number)",
+				returns = "(Wave)"
+			},
       
       LoadSound = {
         type = "function",
@@ -2882,16 +3092,16 @@ return {
       
       ExportWave = {
         type = "function",
-        description = "Export wave data to file",
+        description = "Export wave data to file, returns true on success",
         args = "(wave: Wave, fileName: string)",
-        returns = "(void)"
+        returns = "(boolean)"
       },
       
       ExportWaveAsCode = {
         type = "function",
-        description = "Export wave sample data to code (.h)",
+        description = "Export wave sample data to code (.h), returns true on success",
         args = "(wave: Wave, fileName: string)",
-        returns = "(void)"
+        returns = "(boolean)"
       },
       
       -- Wave/Sound management functions
@@ -2979,13 +3189,20 @@ return {
         retruns = "(void)"
       },
       
-      GetWaveData = {
+      LoadWaveSamples = {
         type = "function",
-        description = "Get samples data from wave as a floats array",
+        description = "Load samples data from wave as a floats array",
         args = "(wave: Wave)",
         returns = "(number)"
       },
       
+			UnloadWaveSamples = {
+				type = "function",
+				description = "Unload samples data loaded with LoadWaveSamples()",
+				args = "(samples: number)",
+				returns = "(void)"
+			},
+			
       -- Music management functions
       LoadMusicStream = {
         type = "function",
@@ -3158,11 +3375,6 @@ return {
       
       -- System config flags
       -- NOTE: Used for bit masks
-      FLAG_RESERVED = {
-        type = "value",
-        description = "Reserved"
-      },
-      
       FLAG_FULLSCREEN_MODE = {
         type = "value",
         description = "Set to run program in fullscreen"
@@ -3180,7 +3392,7 @@ return {
       
       FLAG_WINDOW_TRANSPARENT = {
         type = "value",
-        description = "Set to allow transparent window"
+        description = "Set to allow transparent framebuffer"
       },
       
       FLAG_WINDOW_HIDDEN = {
@@ -3202,6 +3414,26 @@ return {
         type = "value",
         description = "Set to try enabling V-Sync on GPU"
       },
+			
+			FLAG_WINDOW_UNFOCUSED = {
+				type = "value",
+				description = "Set to window non focused"
+			},
+			
+			FLAG_INTERLACED_HINT = {
+				type = "value",
+				description = "Set to try enabling interlaced video format (for V3D)"
+			},
+			
+			FLAG_WINDOW_HIGHDPI = {
+				type = "value",
+				description = "Set to support HighDPI"
+			},
+			
+			FLAG_WINDOW_TOPMOST = {
+				type = "value",
+				description = "Set to window always on top"
+			},
       
       -- Trace log type
       LOG_ALL = {
@@ -3222,8 +3454,11 @@ return {
         description = "Display all logs"
       },
       
-      -- Keyboard keys
-      -- Alphanumeric keys
+      -- Keyboard keys (US keyboard layout)
+			-- NOTE: Use GetKeyPressed() to allow redefining
+			-- required keys for alternative layouts
+      
+			-- Alphanumeric keys
       KEY_APOSTROPHE = { type = "value" },
       KEY_COMMA = { type = "value" },
       KEY_MINUS = { type = "value" },
@@ -3339,6 +3574,20 @@ return {
       KEY_MENU = { type = "value" },
       KEY_VOLUME_UP = { type = "value" },
       KEY_VOLUME_DOWN = { type = "value" },
+			
+			-- Mouse cursor types
+			MOUSE_CURSOR_DEFAULT = { type = "value" },
+			MOUSE_CURSOR_ARROW = { type = "value" },
+			MOUSE_CURSOR_IBEAM = { type = "value" },
+			MOUSE_CURSOR_CROSSHAIR = { type = "value" },
+			MOUSE_CURSOR_POINTING_HAND = { type = "value" },
+			
+			MOUSE_CURSOR_RESIZE_EW = { type = "value", description = "The horizontal resize/move arrow shape" },
+			MOUSE_CURSOR_RESIZE_NS = { type = "value", description = "The vertical resize/move arrow shape" },
+			MOUSE_CURSOR_RESIZE_NWSE = { type = "value", description = "The top-left to bottom-right diagonal resize/move arrow shape" },
+			MOUSE_CURSOR_RESIZE_NESW = { type = "value", description = "The top-right to bottom-left diagonal resize/move arrow shape" },
+			MOUSE_CURSOR_RESIZE_ALL = { type = "value", description = "The omni-directional resize/move cursor shape" },
+			MOUSE_CURSOR_NOT_ALLOWED = { type = "value", description = "The operation-not-allowed shape" },
       
       -- Mouse buttons
       MOUSE_LEFT_BUTTON = { type = "value" },
@@ -3396,7 +3645,7 @@ return {
       GAMEPAD_AXIS_LEFT_TRIGGER = { type = "value", description = "[1..-1] (pressure-level)" },
       GAMEPAD_AXIS_RIGHT_TRIGGER = { type = "value", description = "[1..-1] (pressure-level)" },
       
-      -- Shader location point type
+      -- Shader location points
       LOC_VERTEX_POSITION = { type = "value" },
       LOC_VERTEX_TEXCOORD01 = { type = "value" },
       LOC_VERTEX_TEXCOORD02 = { type = "value" },
@@ -3436,7 +3685,7 @@ return {
       UNIFORM_IVEC4 = { type = "value" },
       UNIFORM_SAMPLER2D = { type = "value" },
       
-      -- Material map type
+      -- Material maps
       MAP_DIFFUSE = { type = "value" },
       MAP_ALBEDO = { type = "value" },
       MAP_METALNESS = { type = "value" },
@@ -3498,7 +3747,14 @@ return {
       WRAP_CLAMP = { type = "value", description = "Clamps texture to edge pixel in tiled mode" },
       WRAP_MIRROR_REPEAT = { type = "value", description = "Mirrors and repeats the texture in tiled mode" },
       WRAP_MIRROR_CLAMP = { type = "value", description = "Mirrors and clamps to border the texture in tiled mode" },
-    
+			
+			BLEND_ALPHA = { type = "value", description = "Blend textures considering alpha (default)" },
+			BLEND_ADDITIVE = { type = "value", description = "Blend textures adding colors" },
+			BLEND_MULTIPLIED = { type = "value", description = "Blend textures multiplying colors" },
+			BLEND_ADD_COLORS = { type = "value", description = "Blend textures adding colors (alternative)" },
+			BLEND_SUBTRACT_COLORS = { type = "value", description = "Blend textures subtracting colors (alternative)" },
+			BLEND_CUSTOM = { type = "value", description = "Belnd textures using custom src/dst factors (use SetBlendModeCustom())" },
+			
       -- Font type, defines generation method
       FONT_DEFAULT = { type = "value", description = "Default font generation, anti-aliased" },
       FONT_BITMAP = { type = "value", description = "Bitmap font generation, no anti-aliasing" },
@@ -3538,6 +3794,27 @@ return {
       PI = { type = "value" },
       DEG2RAD = { type = "value" },
       RAD2DEG = { type = "value" },
+			
+			-- Framebuffer attach types
+			RL_ATTACHMENT_COLOR_CHANNEL0  = { type = "value" },
+			RL_ATTACHMENT_COLOR_CHANNEL1 	= { type = "value" },
+			RL_ATTACHMENT_COLOR_CHANNEL2 	= { type = "value" },
+			RL_ATTACHMENT_COLOR_CHANNEL3 	= { type = "value" },
+			RL_ATTACHMENT_COLOR_CHANNEL4 	= { type = "value" },
+			RL_ATTACHMENT_COLOR_CHANNEL5 	= { type = "value" },
+			RL_ATTACHMENT_COLOR_CHANNEL6 	= { type = "value" },
+			RL_ATTACHMENT_COLOR_CHANNEL7 	= { type = "value" },
+			RL_ATTACHMENT_DEPTH 				 	= { type = "value" },
+			RL_ATTACHMENT_STENCIL				 	= { type = "value" },
+			
+			RL_ATTACHMENT_CUBEMAP_POSITIVE_X = { type = "value" },
+			RL_ATTACHMENT_CUBEMAP_POSITIVE_Y = { type = "value" },
+			RL_ATTACHMENT_CUBEMAP_POSITIVE_Z = { type = "value" },
+			RL_ATTACHMENT_CUBEMAP_NEGATIVE_X = { type = "value" },
+			RL_ATTACHMENT_CUBEMAP_NEGATIVE_Y = { type = "value" },
+			RL_ATTACHMENT_CUBEMAP_NEGATIVE_Z = { type = "value" },
+			RL_ATTACHMENT_TEXTURE2D = { type = "value "},
+			RL_ATTACHMENT_RENDERBUFFER = { type = "value "},
       
       -- Default internal render batch limits
       DEFAULT_BATCH_BUFFER_ELEMENTS   = { type = "value" },
@@ -3938,21 +4215,21 @@ return {
       rlColor4ub = {
         type = "function",
         description = "Define one vertex (color) - 4 byte",
-        args = "(r: number, g: number, b: number, a: number)",
+        args = "(x: number, y: number, z: number, w: number)",
         returns = "(void)"
       },
       
       rlColor3f = {
         type = "function",
         description = "Define one vertex (color) - 3 float",
-        args = "(r: number, g: number, b: number)",
+        args = "(x: number, y: number, z: number)",
         returns = "(void)"
       },
       
       rlColor4f = {
         type = "function",
         description = "Define one vertex (color) - 4 float",
-        args = "(r: number, g: number, b: number, a: number)",
+        args = "(x: number, y: number, z: number, w: number)",
         returns = "(void)"
       },
       
@@ -3979,16 +4256,16 @@ return {
         returns = "(void)"
       },
       
-      rlEnableRenderTexture = {
+      rlEnableShader = {
         type = "function",
-        description = "Enable render texture (fbo)",
+        description = "Enable shader program usage",
         args = "(id: number)",
         returns = "(void)"
       },
       
-      rlDisableRenderTexture = {
+      rlDisableShader = {
         type = "function",
-        description = "Disable render texture (fbo), return to default",
+        description = "Disable shader program usage",
         args = "()",
         returns = "(void)"
       },
@@ -4005,6 +4282,34 @@ return {
         description = "Disable depth test",
         args = "()",
         returns = "(void)"
+      },
+			
+			rlEnableDepthMask = {
+        type = "function",
+        description = "Enable depth write",
+        args = "()",
+        returns = "(void)"
+      },
+      
+      rlDisableDepthMask = {
+        type = "function",
+        description = "Disable depth write",
+        args = "()",
+        returns = "(void)"
+      },
+			
+			rlEnableFramebuffer = {
+        type = "function",
+        description = "Enable render texture (fbo)",
+        args = "(id: number)",
+        returns = "(void)"        
+      },
+      
+      rlDisableFramebuffer = {
+        type = "function",
+        description = "Disable render texture (fbo)",
+        args = "()",
+        returns = "(void)"        
       },
       
       rlEnableBackfaceCulling = {
@@ -4052,6 +4357,34 @@ return {
       rlDisableWireMode = {
         type = "function",
         description = "Disable wire mode",
+        args = "()",
+        returns = "(void)"
+      },
+			
+			rlSetLineWidth = {
+				type = "function",
+				description = "Set the line drawing width",
+				args = "(width: number)",
+				returns = "(void)"
+			},
+			
+			rlGetLineWidth = {
+				type = "function",
+				description = "Get the line drawing width",
+				args = "()",
+				returns = "(number)"
+			},
+			
+			rlEnableSmoothLines = {
+        type = "function",
+        description = "Enable line aliasing",
+        args = "()",
+        returns = "(void)"
+      },
+      
+      rlDisableSmoothLines = {
+        type = "function",
+        description = "Disable line aliasing",
         args = "()",
         returns = "(void)"
       },
@@ -4168,6 +4501,13 @@ return {
         args = "(text: string)",
         returns = "(void)"
       },
+			
+			rlSetBlendMode = {
+				type = "function",
+				description = "Set blending mode factor and equation (using OpenGL factors)",
+				args = "(glSrcFactor: number, glDstFactor: number, glEquation: number)",
+				returns = "(void)"
+			},
       
       rlLoadExtensions = {
         type = "function",
@@ -4194,7 +4534,7 @@ return {
       rlLoadTextureDepth = {
         type = "function",
         description = "Load depth texture/renderbuffer (to be attached to fbo)",
-        args = "(width: number, height: number, bits: number, useRenderBuffer: boolean)",
+        args = "(width: number, height: number, useRenderBuffer: boolean)",
         returns = "(number)"
       },
       
@@ -4247,25 +4587,32 @@ return {
         returns = "(number)"
       },
       
-      -- Render texture management (fbo)
-      rlLoadRenderTexture = {
+      -- Framebuffer management (fbo)
+      rlLoadFramebuffer = {
         type = "function",
-        description = "Load a render texture (with color and depth attachments)",
-        args = "(width: number, height: number, format: number, depthBits: number, useDepthTexture: boolean)",
+        description = "Load an empty framebuffer",
+        args = "(width: number, height: number)",
         returns = "(RenderTexture2D)"
       },
       
-      rlRenderTextureAttach = {
+      rlFramebufferAttach = {
         type = "function",
-        description = "Attach texture/renderbuffer to an fbo",
-        args = "(target: RenderTexture, id: number, attachType: number)",
+        description = "Attach texture/renderbuffer to a framebuffer",
+        args = "(fboId: number, texId: number, attachType: number, texType: number)",
         returns = "(void)"
       },
       
-      rlRenderTextureComplete = {
+      rlFramebufferComplete = {
         type = "function",
-        description = "Verify render texture is complete",
-        args = "(target: RenderTexture)",
+        description = "Verify framebuffer is complete",
+        args = "(id: number)",
+        returns = "(boolean)"
+      },
+			
+			rlUnloadFramebuffer = {
+        type = "function",
+        description = "Delete framebuffer from GPU",
+        args = "(id: number)",
         returns = "(boolean)"
       },
       
@@ -4297,6 +4644,13 @@ return {
         args = "(mesh: Mesh, material: Material, transform: Matrix)",
         returns = "(void)"
       },
+			
+			rlDrawMeshInstanced = {
+				type = "function",
+				description = "Draw a 3d mesh with material and transform",
+				args = "(mesh: Mesh, material: Material, transforms: Matrix, count: number)",
+				returns = "(void)"
+			},
       
       rlUnloadMesh = {
         type = "function",
@@ -4304,6 +4658,9 @@ return {
         args = "(mesh: Mesh)",
         returns = "(void)"
       },
+			
+			-- NOTE: There is a set of shader related functions that are available to end user,
+			-- to avoid creating function wrappers through core module, they have been directly declared in raylib.h
       
       -- raymath.h
       Clamp = {
@@ -5011,7 +5368,7 @@ return {
         returns = "(void)"  
       },
       
-      -- Types,As functions creates ctype by LuaJIT FFI
+      -- Types, As functions creates ctype by LuaJIT FFI
       Vector2 = {
         type = "function",
         description = "Creates Vector2 type",
@@ -5056,7 +5413,7 @@ return {
       
       Rectangle = {
         type = "function",
-        description = "Creates Rectnagle type",
+        description = "Creates Rectangle type",
         args = "(...)",
         returns = "(Rectangle)"
       },
@@ -5068,74 +5425,11 @@ return {
         returns = "(BoundingBox)"
       },
       
-      Image = {
-        type = "function",
-        description = "Creates Image type",
-        args = "(...)",
-        returns = "(Image)"
-      },
-      
-      Texture = {
-        type = "function",
-        description = "Creates Texture type",
-        args = "(...)",
-        returns = "(Texture)"
-      },
-      
-      Texture2D = {
-        type = "function",
-        description = "Creates Texture2D type",
-        args = "(...)",
-        returns = "(Texture2D)"
-      },
-      
-      TextureCubemap = {
-        type = "function",
-        description = "Creates TextureCubemap type",
-        args = "(...)",
-        returns = "(TextureCubemap)"
-      },
-      
-      RenderTexture = {
-        type = "function",
-        description = "Creates RenderTexture type",
-        args = "(...)",
-        returns = "(RenderTexture)"
-      },
-      
-      RenderTexture2D = {
-        type = "function",
-        description = "Creates RenderTexture2D type",
-        args = "(...)",
-        returns = "(RenderTexture2D)"
-      },
-      
       NPatchInfo = {
         type = "function",
         description = "Creates NPatchInfo type",
         args = "(...)",
         returns = "(NPatchInfo)"
-      },
-      
-      CharInfo = {
-        type = "function",
-        description = "Creates CharInfo type",
-        args = "(...)",
-        returns = "(CharInfo)"
-      },
-      
-      Font = {
-        type = "function",
-        description = "Creates Font type",
-        args = "(...)",
-        returns = "(Font)"
-      },
-      
-      SpriteFont = {
-        type = "function",
-        description = "Creates SpriteFont type",
-        args = "(...)",
-        returns = "(SpriteFont)"
       },
       
       Camera = {
@@ -5159,13 +5453,6 @@ return {
         returns = "(Camera2D)"
       },
       
-      Mesh = {
-        type = "function",
-        description = "Creates Mesh type",
-        args = "(...)",
-        returns = "(Mesh)"
-      },
-      
       MaterialMap = {
         type = "function",
         description = "Creates MaterialMap type",
@@ -5173,88 +5460,11 @@ return {
         returns = "(Mesh)"
       },
       
-      Material = {
-        type = "function",
-        description = "Creates Material type",
-        args = "(...)",
-        returns = "(Material)"
-      },
-      
-      Model = {
-        type = "function",
-        description = "Creates Model type",
-        args = "(...)",
-        returns = "(Model)"
-      },
-      
-      Transform = {
-        type = "function",
-        description = "Creates Transform type",
-        args = "(...)",
-        returns = "(Transform)"
-      },
-      
-      BoneInfo = {
-        type = "function",
-        description = "Creates BoneInfo type",
-        args = "(...)",
-        returns = "(BoneInfo)"
-      },
-      
-      ModelAnimation = {
-        type = "function",
-        description = "Creates ModelAnimation type",
-        args = "(...)",
-        returns = "(ModelAnimation)"
-      },
-      
       Ray = {
         type = "function",
         description = "Creates Ray type",
         args = "(...)",
         returns = "(Ray)"
-      },
-      
-      RayHitInfo = {
-        type = "function",
-        description = "Creates RayHitInfo type",
-        args = "(...)",
-        returns = "(RayHitInfo)"
-      },
-      
-      Wave = {
-        type = "function",
-        description = "Creates Wave type",
-        args = "(...)",
-        returns = "(Wave)"
-      },
-      
-      Sound = {
-        type = "function",
-        description = "Creates Sound type",
-        args = "(...)",
-        returns = "(Sound)"
-      },
-      
-      Music = {
-        type = "function",
-        description = "Creates Music type",
-        args = "(...)",
-        returns = "(Music)"
-      },
-      
-      AudioStream = {
-        type = "function",
-        description = "Creates AudioStream type",
-        args = "(...)",
-        returns = "(AudioStream)"
-      },
-      
-      rAudioBuffer = {
-        type = "function",
-        description = "Creates rAudioBuffer type",
-        args = "(...)",
-        returns = "(rAudioBuffer)"
       },
       
       VrDeviceInfo = {
@@ -5266,7 +5476,7 @@ return {
       
       new = {
         type = "function",
-        description = "Same as ffi.new, Creates C types",
+        description = "Same as ffi.new, Creates C type!",
         args = "(ctype: ctype, ...)",
         returns = "(userdata)"
       },
@@ -5294,6 +5504,7 @@ return {
         returns = "(float16)"
       },
       
+			-- For physac.h
       PhysicsBody = {
         type = "function",
         description = "Creates PhysicsBody type",
