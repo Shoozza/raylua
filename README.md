@@ -66,7 +66,7 @@ I finally did autocompletion for raylib Lua/LuaJIT bindings to use in ZeroBrane 
 
 ### Using this on cherry
 
-I'm working on package manager called cherry, And you can use it to install raylua as package.
+raylua also available as package for [cherry](https://github.com/Rabios/cherry), And it's easy to install and setup!
 
 ```
 cherry new D:\cherry-raylua-game
