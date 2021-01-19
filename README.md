@@ -91,9 +91,9 @@ To get it see [tsnake41-raylib-lua](https://github.com/Rabios/raylua/blob/master
 
 ### Special thanks
 
-1. [Ramon Santamaria(raysan5)](https://github.com/raysan5), Who created [raylib](https://www.raylib.com).
-2. [Astie Teddy(TSnake41)](https://github.com/TSnake41), Cause my bindings inspired by [his bindings](https://github.com/TSnake41/raylib-lua).
-3. [Alexander Matz(alexander-matz)](https://github.com/alexander-matz), Cause [his gist](https://gist.github.com/alexander-matz/f8ee4eb9fdf676203d70c1e5e329a6ec) was the first reason to write my own bindings from zero.
+1. [Ramon Santamaria (@raysan5)](https://github.com/raysan5), Who created [raylib](https://www.raylib.com).
+2. [Astie Teddy (@TSnake41)](https://github.com/TSnake41), Cause my bindings inspired by [his bindings](https://github.com/TSnake41/raylib-lua).
+3. [Alexander Matz (@alexander-matz)](https://github.com/alexander-matz), Cause [his gist](https://gist.github.com/alexander-matz/f8ee4eb9fdf676203d70c1e5e329a6ec) was the first reason to write my own bindings from zero.
 
 ### License
 
