@@ -11,7 +11,7 @@ camera.position = rl.Vector3(30.0, 20.0, 30.0)
 camera.target = rl.Vector3(0.0, 0.0, 0.0)
 camera.up = rl.Vector3(0.0, 1.0, 0.0)
 camera.fovy = 70.0
-camera.type = rl.CAMERA_PERSPECTIVE
+camera.projection = rl.CAMERA_PERSPECTIVE
 
 local numBlocks = 15
 rl.SetTargetFPS(60)
@@ -37,7 +37,7 @@ while not rl.WindowShouldClose() do    -- Detect window close button or ESC key
                                           (y - numBlocks / 2) * (scale * 2.0) + scatter,
                                           (z - numBlocks / 2) * (scale * 3.0) + scatter)
 
-        local cubeColor = rl.Color(rl.ColorFromHSV(ffi.new("Vector3", (((x + y + z) * 18) % 360), 0.75, 0.9 )))
+        local cubeColor = rl.ColorFromHSV(((x + y + z) * 18) % 360, 0.75, 0.9 )
         local cubeSize = (2.4 - scale) * blockScale
         rl.DrawCube(cubePos, cubeSize, cubeSize, cubeSize, cubeColor)
 			end

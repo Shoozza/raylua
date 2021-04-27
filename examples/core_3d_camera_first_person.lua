@@ -11,7 +11,7 @@ camera.position = rl.Vector3(4.0, 2.0, 4.0)
 camera.target = rl.Vector3(0.0, 1.8, 0.0)
 camera.up = rl.Vector3(0.0, 1.0, 0.0)
 camera.fovy = 120.0
-camera.type = rl.CAMERA_PERSPECTIVE
+camera.projection = rl.CAMERA_PERSPECTIVE
 
 local heights = {}
 local positions = {}
