@@ -6,7 +6,5 @@ return {
   "libraylib64.dll",
   "libraylib.so",
   "libraylib.dylib",
-  "libraylib64_android_intel.so",
-  "libraylib64_android_armaebi.so",
   "raylua.png",
 }

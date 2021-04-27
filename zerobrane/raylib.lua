@@ -1,12 +1,12 @@
 -- Written by Rabia Alhaffar in 14/August/2020
--- raylib 3.5 LuaJIT bindings for Zerobrane Studio
--- Latest Update: 26/August/2020
+-- raylib 3.7 LuaJIT bindings for Zerobrane Studio
+-- Latest Update: 27/April/2021
 -- Works with TSnake41's bindings, raylua, Alexander Matz's bindings
 -- Sources: https://www.raylib.com/cheatsheet/cheatsheet.html, And bindings headers!
 return {
   rl = {
     type = "lib",
-    description = "raylib 3.5 bindings for LuaJIT",
+    description = "raylib 3.7 bindings for LuaJIT",
     childs = {
       -- module: core
       -- Window-related functions
@@ -38,12 +38,12 @@ return {
         returns = "(boolean)"
       },
       
-			IsWindowFocused = {
-				type = "function",
-				description = "Check if window is currently focused (only PLATFORM_DESKTOP)",
-				args = "()",
-				returns = "(boolean)"
-			},
+      IsWindowFocused = {
+        type = "function",
+        description = "Check if window is currently focused (only PLATFORM_DESKTOP)",
+        args = "()",
+        returns = "(boolean)"
+       },
 			
       IsWindowMinimized = {
         type = "function",
@@ -52,7 +52,7 @@ return {
         returns = "(boolean)"
       },
 			
-			IsWindowMaximized = {
+	  IsWindowMaximized = {
         type = "function",
         description = "Check if window has been maximized (only PLATFORM_DESKTOP)",
         args = "()",
@@ -376,6 +376,35 @@ return {
         returns = "(void)"
       },
       
+      BeginVrStereoMode = {
+        type = "function",
+        description = "Begin stereo rendering (requires VR simulator)",
+        args = "(config: VrStereoConfig)",
+        returns = "(void)"
+      },
+      
+      EndVrStereoMode = {
+        type = "function",
+        description = "End stereo rendering (requires VR simulator)",
+        args = "()",
+        returns = "(void)"
+      },
+
+      -- VR stereo config functions for VR simulator
+      LoadVrStereoConfig = {
+        type = "function",
+        description = "Load VR stereo config for VR simulator device parameters",
+        args = "(device: VrDeviceInfo)",
+        returns = "(VrStereoConfig)"
+      },
+      
+      UnloadVrStereoConfig = {
+        type = "function",
+        description = "Unload VR stereo config",
+        args = "(config: VrStereoConfig)",
+        returns = "(void)"
+      },
+      
       -- Screen-space-related functions
       GetMouseRay = {
         type = "function",
@@ -537,6 +566,34 @@ return {
       SetTraceLogCallback = {
         type = "function",
         description = "Set a trace log callback to enable custom logging",
+        args = "(callback: function)",
+        returns = "(void)"
+      },
+      
+      SetLoadFileDataCallback = {
+        type = "function",
+        description = "Set custom file binary data loader",
+        args = "(callback: function)",
+        returns = "(void)"
+      },
+      
+      SetSaveFileDataCallback = {
+        type = "function",
+        description = "Set custom file binary data saver",
+        args = "(callback: function)",
+        returns = "(void)"
+      },
+      
+      SetLoadFileTextCallback = {
+        type = "function",
+        description = "Set custom file text data loader",
+        args = "(callback: function)",
+        returns = "(void)"
+      },
+      
+      SetSaveFileTextCallback = {
+        type = "function",
+        description = "Set custom file text data saver",
         args = "(callback: function)",
         returns = "(void)"
       },
@@ -2007,6 +2064,13 @@ return {
         returns = "(void)"
       },
       
+      DrawTexturePoly = {
+        type = "function",
+        description = "Draw a textured polygon",
+        args = "(texture: Texture2D, center: Vector2, points: array<Vector2>, texcoords: array<Vector2>, pointsCount: number, tint: Color)",
+        returns = "(void)"
+      },
+      
       -- Image/Texture misc functions
       GetPixelDataSize = {
         type = "function",
@@ -2453,6 +2517,20 @@ return {
       },
       
       -- Mesh loading/unloading functions
+      UploadMesh = {
+        type = "function",
+        description = "Upload vertex data into GPU and provided VAO/VBO ids",
+        args = "(mesh: Mesh, dynamic: bool)",
+        returns = "(void)"
+      },
+      
+      UpdateMeshBuffer = {
+        type = "function",
+        description = "",
+        args = "(mesh: Mesh, index: number, data: pointer<void>, dataSize: number, offset: number)",
+        returns = "(void)"
+      },
+      
       LoadMeshes = {
         type = "function",
         description = "Load meshes from model file",
@@ -2776,9 +2854,37 @@ return {
         returns = "(Shader)"
       },
       
+      rlLoadShaderCode = {
+        type = "function",
+        description = "Load shader from code strings and bind default locations",
+        args = "(vsCode: string, fsCode: string)",
+        returns = "(number)"
+      },
+      
+      rlCompileShader = {
+        type = "function",
+        description = "Compile custom shader and return shader id (type: GL_VERTEX_SHADER, GL_FRAGMENT_SHADER)",
+        args = "(code: string, type: int)",
+        returns = "(number)"
+      },
+      
+      LoadShaderFromMemory = {
+        type = "function",
+        description = "Load shader from code strings and bind default locations",
+        args = "(vsCode: string, fsCode: string)",
+        returns = "(Shader)"
+      },
+      
       UnloadShader = {
         type = "function",
         description = "Unload shader from GPU memory (VRAM)",
+        args = "(shader: Shader)",
+        returns = "(void)"
+      },
+      
+      rlSetShader = {
+        type = "function",
+        description = "Set shader currently active",
         args = "(shader: Shader)",
         returns = "(void)"
       },
@@ -2791,6 +2897,20 @@ return {
       },
       
       GetTextureDefault = {
+        type = "function",
+        description = "Get default texture",
+        args = "()",
+        returns = "(Texture2D)"
+      },
+      
+      rlGetShaderDefault = {
+        type = "function",
+        description = "Get default shader",
+        args = "()",
+        returns = "(Shader)"
+      },
+      
+      rlGetTextureDefault = {
         type = "function",
         description = "Get default texture",
         args = "()",
@@ -2824,6 +2944,56 @@ return {
         description = "Get shader uniform location",
         args = "(shader: Shader, uniformName: string)",
         returns = "(number)"
+      },
+      
+      -- Shader configuration functions
+      rlGetLocationUniform = {
+        type = "function",
+        description = "Get shader uniform location",
+        args = "(shaderId: number, uniformName: string)",
+        returns = "(number)"
+      },
+      
+      rlGetLocationAttrib = {
+        type = "function",
+        description = "Get shader uniform location",
+        args = "(shaderId: number, attribName: string)",
+        returns = "(number)"
+      },
+      
+      rlLoadShaderProgram = {
+        type = "function",
+        description = "Load custom shader program",
+        args = "(vShaderId: number, fShaderId: number)",
+        returns = "(number)"
+      },
+      
+      rlUnloadShaderProgram = {
+        type = "function",
+        description = "Unload shader program",
+        args = "(id: number)",
+        returns = "(void)"
+      },
+      
+      rlSetUniform = {
+        type = "function",
+        description = "Set shader value uniform",
+        args = "(locIndex: number, value: pointer<void>, uniformType: number, count: number)",
+        returns = "(void)"
+      },
+      
+      rlSetUniformMatrix = {
+        type = "function",
+        description = "Set shader value matrix",
+        args = "(locIndex: number, mat: Matrix)",
+        returns = "(void)"
+      },
+      
+      rlSetUniformSampler = {
+        type = "function",
+        description = "Set shader value sampler",
+        args = "(locIndex: number, textureId: number)",
+        returns = "(void)"
       },
 			
 			GetShaderLocationAttrib = {
@@ -2887,6 +3057,112 @@ return {
         description = "Get internal projection matrix",
         args = "()",
         returns = "(Matrix)"
+      },
+      
+      
+      rlSetMatrixProjection = {
+        type = "function",
+        description = "Set a custom projection matrix (replaces internal projection matrix)",
+        args = "(proj: Matrix)",
+        returns = "(void)"
+      },
+      
+      rlSetMatrixModelview = {
+        type = "function",
+        description = "Set a custom modelview matrix (replaces internal modelview matrix)",
+        args = "(view: Matrix)",
+        returns = "(void)"
+      },
+      
+      rlGetMatrixModelview = {
+        type = "function",
+        description = "Get internal modelview matrix",
+        args = "()",
+        returns = "(Matrix)"
+      },
+      
+      rlGetMatrixProjection = {
+        type = "function",
+        description = "Get internal projection matrix",
+        args = "()",
+        returns = "(Matrix)"
+      },
+      
+      rlGetMatrixTransform = {
+        type = "function",
+        description = "Get internal accumulated transform matrix",
+        args = "()",
+        returns = "(Matrix)"
+      },
+      
+      rlGetMatrixProjectionStereo = {
+        type = "function",
+        description = "Get internal projection matrix for stereo render (selected eye)",
+        args = "(eye: number)",
+        returns = "(Matrix)"
+      },
+      
+      rlGetMatrixViewOffsetStereo = {
+        type = "function",
+        description = "Get internal view offset matrix for stereo render (selected eye)",
+        args = "(eye: number)",
+        returns = "(Matrix)"
+      },
+      
+      rlSetMatrixProjection = {
+        type = "function",
+        description = "Set a custom projection matrix (replaces internal projection matrix)",
+        args = "(proj: Matrix)",
+        returns = "(void)"
+      },
+      
+      rlSetMatrixProjectionStereo = {
+        type = "function",
+        description = "Set eyes projection matrices for stereo rendering",
+        args = "(left: Matrix, right: Matrix)",
+        returns = "(void)"
+      },
+      
+      rlSetMatrixViewOffsetStereo = {
+        type = "function",
+        description = "Set eyes view offsets matrices for stereo rendering",
+        args = "(left: Matrix, right: Matrix)",
+        returns = "(void)"
+      },
+      
+      rlSetMatrixModelview = {
+        type = "function",
+        description = "Set a custom modelview matrix (replaces internal modelview matrix)",
+        args = "(view: Matrix)",
+        returns = "(void)"
+      },
+      
+      rlGetMatrixModelview = {
+        type = "function",
+        description = "Get internal modelview matrix",
+        args = "()",
+        returns = "(Matrix)"
+      },
+      
+      rlGetMatrixProjection = {
+        type = "function",
+        description = "Get internal projection matrix",
+        args = "()",
+        returns = "(Matrix)"
+      },
+      
+      rlLoadDrawCube = {
+        type = "function",
+        description = "",
+        args = "()",
+        returns = "(void)"
+      },
+      
+      rlLoadDrawQuad = {
+        type = "function",
+        description = "",
+        args = "()",
+        returns = "(void)"
       },
 			
 			GenTextureCubemap = {
@@ -3674,6 +3950,35 @@ return {
       LOC_MAP_PREFILTER = { type = "value" },
       LOC_MAP_BRD = { type = "value" },
       
+      -- Shader location points
+      SHADER_LOC_VERTEX_POSITION = { type = "value" },
+      SHADER_LOC_VERTEX_TEXCOORD01 = { type = "value" },
+      SHADER_LOC_VERTEX_TEXCOORD02 = { type = "value" },
+      SHADER_LOC_VERTEX_NORMAL = { type = "value" },
+      SHADER_LOC_VERTEX_TANGENT = { type = "value" },
+      SHADER_LOC_VERTEX_COLOR = { type = "value" },
+      SHADER_LOC_MATRIX_MVP = { type = "value" },
+      SHADER_LOC_MATRIX_MODEL = { type = "value" },
+      SHADER_LOC_MATRIX_VIEW = { type = "value" },
+      SHADER_LOC_MATRIX_PROJECTION = { type = "value" },
+      SHADER_LOC_VECTOR_VIEW = { type = "value" },
+      SHADER_LOC_COLOR_DIFFUSE = { type = "value" },
+      SHADER_LOC_COLOR_SPECULAR = { type = "value" },
+      SHADER_LOC_COLOR_AMBIENT = { type = "value" },
+      SHADER_LOC_MAP_DIFFUSE = { type = "value" },
+      SHADER_LOC_MAP_ALBEDO = { type = "value" },
+      SHADER_LOC_MAP_SPECULAR = { type = "value" },
+      SHADER_LOC_MAP_METALNESS = { type = "value" },
+      SHADER_LOC_MAP_NORMAL = { type = "value" },
+      SHADER_LOC_MAP_ROUGHNESS = { type = "value" },
+      SHADER_LOC_MAP_OCCLUSION = { type = "value" },
+      SHADER_LOC_MAP_EMISSION = { type = "value" },
+      SHADER_LOC_MAP_HEIGHT = { type = "value" },
+      SHADER_LOC_MAP_CUBEMAP = { type = "value" },
+      SHADER_LOC_MAP_IRRADIANCE = { type = "value" },
+      SHADER_LOC_MAP_PREFILTER = { type = "value" },
+      SHADER_LOC_MAP_BRD = { type = "value" },
+      
       -- Shader uniform data types
       UNIFORM_FLOAT = { type = "value" },
       UNIFORM_VEC2 = { type = "value" },
@@ -3684,6 +3989,16 @@ return {
       UNIFORM_IVEC3 = { type = "value" },
       UNIFORM_IVEC4 = { type = "value" },
       UNIFORM_SAMPLER2D = { type = "value" },
+      
+      SHADER_UNIFORM_FLOAT = { type = "value" },
+      SHADER_UNIFORM_VEC2 = { type = "value" },
+      SHADER_UNIFORM_VEC3 = { type = "value" },
+      SHADER_UNIFORM_VEC4 = { type = "value" },
+      SHADER_UNIFORM_INT = { type = "value" },
+      SHADER_UNIFORM_IVEC2 = { type = "value" },
+      SHADER_UNIFORM_IVEC3 = { type = "value" },
+      SHADER_UNIFORM_IVEC4 = { type = "value" },
+      SHADER_UNIFORM_SAMPLER2D = { type = "value" },
       
       -- Material maps
       MAP_DIFFUSE = { type = "value" },
@@ -3699,6 +4014,21 @@ return {
       MAP_IRRADIANCE = { type = "value" },          -- NOTE: Uses GL_TEXTURE_CUBE_MAP
       MAP_PREFILTER = { type = "value" },           -- NOTE: Uses GL_TEXTURE_CUBE_MAP
       MAP_BRDF = { type = "value" },
+      
+      -- Material maps
+      MATERIAL_MAP_DIFFUSE = { type = "value" },
+      MATERIAL_MAP_ALBEDO = { type = "value" },
+      MATERIAL_MAP_METALNESS = { type = "value" },
+      MATERIAL_MAP_SPECULAR = { type = "value" },
+      MATERIAL_MAP_NORMAL = { type = "value" },
+      MATERIAL_MAP_ROUGHNESS = { type = "value" },
+      MATERIAL_MAP_OCCLUSION = { type = "value" },
+      MATERIAL_MAP_EMISSION = { type = "value" },
+      MATERIAL_MAP_HEIGHT = { type = "value" },
+      MATERIAL_MAP_CUBEMAP = { type = "value" },             -- NOTE: Uses GL_TEXTURE_CUBE_MAP
+      MATERIAL_MAP_IRRADIANCE = { type = "value" },          -- NOTE: Uses GL_TEXTURE_CUBE_MAP
+      MATERIAL_MAP_PREFILTER = { type = "value" },           -- NOTE: Uses GL_TEXTURE_CUBE_MAP
+      MATERIAL_MAP_BRDF = { type = "value" },
       
       -- Pixel formats
       -- NOTE: Support depends on OpenGL version and platform
@@ -3724,6 +4054,28 @@ return {
       COMPRESSED_ASTC_4x4_RGBA = { type = "value" },       -- 8 bpp
       COMPRESSED_ASTC_8x8_RGBA = { type = "value" },       -- 2 bpp
       
+      PIXELFORMAT_UNCOMPRESSED_GRAYSCALE = { type = "value" },         -- 8 bit per pixel (no alpha)
+      PIXELFORMAT_UNCOMPRESSED_GRAY_ALPHA = { type = "value" },        -- 8*2 bpp (2 channels)
+      PIXELFORMAT_UNCOMPRESSED_R5G6B5 = { type = "value" },            -- 16 bpp
+      PIXELFORMAT_UNCOMPRESSED_R8G8B8 = { type = "value" },            -- 24 bpp
+      PIXELFORMAT_UNCOMPRESSED_R5G5B5A1 = { type = "value" },          -- 16 bpp (1 bit alpha)
+      PIXELFORMAT_UNCOMPRESSED_R4G4B4A4 = { type = "value" },          -- 16 bpp (4 bit alpha)
+      PIXELFORMAT_UNCOMPRESSED_R8G8B8A8 = { type = "value" },          -- 32 bpp
+      PIXELFORMAT_UNCOMPRESSED_R32 = { type = "value" },               -- 32 bpp (1 channel - float)
+      PIXELFORMAT_UNCOMPRESSED_R32G32B32 = { type = "value" },         -- 32*3 bpp (3 channels - float)
+      PIXELFORMAT_UNCOMPRESSED_R32G32B32A32 = { type = "value" },      -- 32*4 bpp (4 channels - float)
+      PIXELFORMAT_COMPRESSED_DXT1_RGB = { type = "value" },            -- 4 bpp (no alpha)
+      PIXELFORMAT_COMPRESSED_DXT1_RGBA = { type = "value" },           -- 4 bpp (1 bit alpha)
+      PIXELFORMAT_COMPRESSED_DXT3_RGBA = { type = "value" },           -- 8 bpp
+      PIXELFORMAT_COMPRESSED_DXT5_RGBA = { type = "value" },           -- 8 bpp
+      PIXELFORMAT_COMPRESSED_ETC1_RGB = { type = "value" },            -- 4 bpp
+      PIXELFORMAT_COMPRESSED_ETC2_RGB = { type = "value" },            -- 4 bpp
+      PIXELFORMAT_COMPRESSED_ETC2_EAC_RGBA = { type = "value" },       -- 8 bpp
+      PIXELFORMAT_COMPRESSED_PVRT_RGB = { type = "value" },            -- 4 bpp
+      PIXELFORMAT_COMPRESSED_PVRT_RGBA = { type = "value" },           -- 4 bpp
+      PIXELFORMAT_COMPRESSED_ASTC_4x4_RGBA = { type = "value" },       -- 8 bpp
+      PIXELFORMAT_COMPRESSED_ASTC_8x8_RGBA = { type = "value" },       -- 2 bpp
+      
       -- Texture parameters: filter mode
       -- NOTE 1: Filtering considers mipmaps if available in the texture
       -- NOTE 2: Filter is accordingly set for minification and magnification
@@ -3734,6 +4086,13 @@ return {
       FILTER_ANISOTROPIC_8X = { type = "value", description = "Anisotropic filtering 8x" },
       FILTER_ANISOTROPIC_16X = { type = "value", description = "Anisotropic filtering 16x" },
       
+      TEXTURE_FILTER_POINT = { type = "value", description = "No filter, just pixel aproximation" },
+      TEXTURE_FILTER_BILINEAR = { type = "value", description = "Linear filtering" },
+      TEXTURE_FILTER_TRILINEAR = { type = "value", description = "Trilinear filtering (linear with mipmaps)" },
+      TEXTURE_FILTER_ANISOTROPIC_4X = { type = "value", description = "Anisotropic filtering 4x" },
+      TEXTURE_FILTER_ANISOTROPIC_8X = { type = "value", description = "Anisotropic filtering 8x" },
+      TEXTURE_FILTER_ANISOTROPIC_16X = { type = "value", description = "Anisotropic filtering 16x" },
+      
       -- Cubemap layout type
       CUBEMAP_AUTO_DETECT = { type = "value", description = "Automatically detect layout type" },
       CUBEMAP_LINE_VERTICAL = { type = "value", description = "Layout is defined by a vertical line with faces" },
@@ -3742,11 +4101,23 @@ return {
       CUBEMAP_CROSS_FOUR_BY_THREE = { type = "value", description = "Layout is defined by a 4x3 cross with cubemap faces" },
       CUBEMAP_PANORAMA = { type = "value", description = "Layout is defined by a panorama image (equirectangular map)" },
       
+      CUBEMAP_LAYOUT_AUTO_DETECT = { type = "value", description = "Automatically detect layout type" },
+      CUBEMAP_LAYOUT_LINE_VERTICAL = { type = "value", description = "Layout is defined by a vertical line with faces" },
+      CUBEMAP_LAYOUT_LINE_HORIZONTAL = { type = "value", description = "Layout is defined by an horizontal line with faces" },
+      CUBEMAP_LAYOUT_CROSS_THREE_BY_FOUR = { type = "value", description = "Layout is defined by a 3x4 cross with cubemap faces" },
+      CUBEMAP_LAYOUT_CROSS_FOUR_BY_THREE = { type = "value", description = "Layout is defined by a 4x3 cross with cubemap faces" },
+      CUBEMAP_LAYOUT_PANORAMA = { type = "value", description = "Layout is defined by a panorama image (equirectangular map)" },
+      
       -- Texture parameters: wrap mode
       WRAP_REPEAT = { type = "value", description = "Repeats texture in tiled mode" },
       WRAP_CLAMP = { type = "value", description = "Clamps texture to edge pixel in tiled mode" },
       WRAP_MIRROR_REPEAT = { type = "value", description = "Mirrors and repeats the texture in tiled mode" },
       WRAP_MIRROR_CLAMP = { type = "value", description = "Mirrors and clamps to border the texture in tiled mode" },
+      
+      TEXTURE_WRAP_REPEAT = { type = "value", description = "Repeats texture in tiled mode" },
+      TEXTURE_WRAP_CLAMP = { type = "value", description = "Clamps texture to edge pixel in tiled mode" },
+      TEXTURE_WRAP_MIRROR_REPEAT = { type = "value", description = "Mirrors and repeats the texture in tiled mode" },
+      TEXTURE_WRAP_MIRROR_CLAMP = { type = "value", description = "Mirrors and clamps to border the texture in tiled mode" },
 			
 			BLEND_ALPHA = { type = "value", description = "Blend textures considering alpha (default)" },
 			BLEND_ADDITIVE = { type = "value", description = "Blend textures adding colors" },
@@ -3789,6 +4160,10 @@ return {
       NPT_9PATCH = { type = "value", description = "Npatch defined by 3x3 tiles" },
       NPT_3PATCH_VERTICAL = { type = "value", description = "Npatch defined by 1x3 tiles" },
       NPT_3PATCH_HORIZONTAL = { type = "value", description = "Npatch defined by 3x1 tiles" },
+      
+      NPATCH_NINE_PATCH = { type = "value", description = "Npatch defined by 3x3 tiles" },
+      NPATCH_THREE_PATCH_VERTICAL = { type = "value", description = "Npatch defined by 1x3 tiles" },
+      NPATCH_THREE_PATCH_HORIZONTAL = { type = "value", description = "Npatch defined by 3x1 tiles" },
       
       -- Some definitions moved to here by Lua code, This is a direct port of the code
       PI = { type = "value" },
@@ -3847,7 +4222,13 @@ return {
       RL_MODELVIEW                    = { type = "value", description = "GL_MODELVIEW" },
       RL_PROJECTION                   = { type = "value", description = "GL_PROJECTION" },
       RL_TEXTURE                      = { type = "value", description = "GL_TEXTURE" },
-
+      
+      -- Shader attribute data types
+      SHADER_ATTRIB_FLOAT             = { type = "value", description = "SHADER_ATTRIB_FLOAT" },
+      SHADER_ATTRIB_VEC2              = { type = "value", description = "SHADER_ATTRIB_VEC2" },
+      SHADER_ATTRIB_VEC3              = { type = "value", description = "SHADER_ATTRIB_VEC3" },
+      SHADER_ATTRIB_VEC4              = { type = "value", description = "SHADER_ATTRIB_VEC4" },
+      
       -- Primitive assembly draw modes
       RL_LINES                        = { type = "value", description = "GL_LINES" },
       RL_TRIANGLES                    = { type = "value", description = "GL_TRIANGLES" },
@@ -4235,6 +4616,13 @@ return {
       
       -- Functions Declaration - OpenGL equivalent functions (common to 1.1, 3.3+, ES2)
       -- NOTE: This functions are used to completely abstract raylib code from OpenGL layer
+      rlActiveTextureSlot = {
+        type = "function",
+        description = "Select and active a texture slot",
+        args = "(slot: number)",
+        returns = "(void)"
+      },
+      
       rlEnableTexture = {
         type = "function",
         description = "Enable texture usage",
@@ -4243,6 +4631,20 @@ return {
       },
       
       rlDisableTexture = {
+        type = "function",
+        description = "Disable texture usage",
+        args = "()",
+        returns = "(void)"
+      },
+      
+      rlEnableTextureCubemap = {
+        type = "function",
+        description = "Enable texture usage",
+        args = "(id: number)",
+        retruns = "(void)"
+      },
+      
+      rlDisableTextureCubemap = {
         type = "function",
         description = "Disable texture usage",
         args = "()",
@@ -4324,6 +4726,27 @@ return {
         description = "Disable backface culling",
         args = "()",
         returns = "(void)"        
+      },
+      
+      rlEnableStereoRender = {
+        type = "function",
+        description = "Enable stereo rendering",
+        args = "()",
+        returns = "(void)"        
+      },
+      
+      rlDisableStereoRender = {
+        type = "function",
+        description = "Disable stereo rendering",
+        args = "()",
+        returns = "(void)"        
+      },
+      
+      rlIsStereoRenderEnabled = {
+        type = "function",
+        description = "Check if stereo render is enabled",
+        args = "()",
+        returns = "(boolean)"
       },
       
       rlEnableScissorTest = {
@@ -4502,12 +4925,19 @@ return {
         returns = "(void)"
       },
 			
-			rlSetBlendMode = {
-				type = "function",
-				description = "Set blending mode factor and equation (using OpenGL factors)",
-				args = "(glSrcFactor: number, glDstFactor: number, glEquation: number)",
-				returns = "(void)"
-			},
+	  rlSetBlendFactors = {
+		type = "function",
+		description = "Set blending mode factor and equation (using OpenGL factors)",
+	    args = "(glSrcFactor: number, glDstFactor: number, glEquation: number)",
+	    returns = "(void)"
+	  },
+            
+      rlSetBlendMode = {
+		type = "function",
+		description = "Set blending mode",
+		args = "(mode: number)",
+		returns = "(void)"
+	  },
       
       rlLoadExtensions = {
         type = "function",
@@ -4521,6 +4951,20 @@ return {
         description = "Get world coordinates from screen coordinates",
         args = "(source: Vector3, proj: Matrix, view: Matrix)",
         returns = "(Vector3)"
+      },
+      
+      rlGetFramebufferWidth = {
+        type = "function",
+        description = " Get default framebuffer width",
+        args = "()",
+        returns = "(number)"
+      },
+      
+      rlGetFramebufferHeight = {
+        type = "function",
+        description = " Get default framebuffer height",
+        args = "()",
+        returns = "(number)"
       },
       
       -- Textures data management
@@ -4604,16 +5048,108 @@ return {
       
       rlFramebufferComplete = {
         type = "function",
-        description = "Verify framebuffer is complete",
+        desription = "Verify framebuffer is complete",
         args = "(id: number)",
         returns = "(boolean)"
       },
 			
-			rlUnloadFramebuffer = {
+	  rlUnloadFramebuffer = {
         type = "function",
         description = "Delete framebuffer from GPU",
         args = "(id: number)",
         returns = "(boolean)"
+      },
+      
+      -- Vertex buffers management
+      rlLoadVertexArray = {
+        type = "function",
+        description = "Load vertex array (vao) if supported",
+        args = "()",
+        returns = "(number)"
+      },
+      
+      rlLoadVertexBuffer = {
+        type = "function",
+        description = "Load a vertex buffer attribute",
+        args = "(buffer: pointer<void>, size: number, dynamic: boolean)",
+        returns = "(number)"
+      },
+      
+      rlLoadVertexBufferElement = {
+        type = "function",
+        description = "Load a new attributes element buffer",
+        args = "(buffer: pointer<void>, size: number, dynamic: boolean)",
+        returns = "(number)"
+      },
+      
+      rlUnloadVertexArray = {
+        type = "function",
+        description = "",
+        args = "(vaoId: number)",
+        returns = "(void)"
+      },
+      
+      rlUpdateVertexBuffer = {
+        type = "function",
+        description = "Update GPU buffer with new data",
+        args = "(bufferId: number, data: pointer<void>, dataSize: number, offset: number)",
+        returns = "(void)"
+      },
+      
+      rlUnloadVertexBuffer = {
+        type = "function",
+        description = "",
+        args = "(vaoId: number)",
+        returns = "(void)"
+      },
+      
+      rlSetVertexAttribute = {
+        type = "function",
+        description = "",
+        args = "(index: number, compSize: number, type: number, normalized: boolean, stride: number, pointer: pointer<void>)",
+        returns = "(void)"
+      },
+      
+      rlSetVertexAttributeDivisor = {
+        type = "function",
+        description = "",
+        args = "(index: number, divisor: number)",
+        returns = "(void)"
+      },
+      
+      rlSetVertexAttributeDefault = {
+        type = "function",
+        description = "Set vertex attribute default value",
+        args = "(locIndex: number, value: pointer<void>, attachType: number, count: number)",
+        returns = "(void)"
+      },
+      
+      rlDrawVertexArray = {
+        type = "function",
+        description = "",
+        args = "(offset: number, count: number)",
+        returns = "(void)"
+      },
+      
+      rlDrawVertexArrayElements = {
+        type = "function",
+        description = "",
+        args = "(offset: number, count: number, buffer: pointer<void>)",
+        returns = "(void)"
+      },
+      
+      rlDrawVertexArrayInstanced = {
+        type = "function",
+        description = "",
+        args = "(offset: number, count: number, instances: number)",
+        returns = "(void)"
+      },
+      
+      rlDrawVertexArrayElementsInstanced = {
+        type = "function",
+        description = "",
+        args = "(offset: number, count: number, buffer: pointer<void>, instances: number)",
+        returns = "(void)"
       },
       
       -- Vertex data management
@@ -4648,9 +5184,93 @@ return {
 			rlDrawMeshInstanced = {
 				type = "function",
 				description = "Draw a 3d mesh with material and transform",
-				args = "(mesh: Mesh, material: Material, transforms: Matrix, count: number)",
+				args = "(mesh: Mesh, material: Material, transforms: array<Matrix>, count: number)",
 				returns = "(void)"
-			},
+	},
+      
+      rlEnableVertexArray = {
+        type = "function",
+        description = "Enable vertex array (VAO, if supported)",
+        args = "(vaoId: number)",
+        returns = "(boolean)"
+      },
+      
+      rlDisableVertexArray = {
+        type = "function",
+        description = "Disable vertex array (VAO, if supported)",
+        args = "()",
+        returns = "(void)"
+      },
+      
+      rlEnableVertexBuffer = {
+        type = "function",
+        description = "Enable vertex buffer (VBO)",
+        args = "(id: number)",
+        returns = "(boolean)"
+      },
+      
+      rlDisableVertexBuffer = {
+        type = "function",
+        description = "Disable vertex buffer (VBO)",
+        args = "()",
+        returns = "(void)"
+      },
+      
+      rlEnableVertexBufferElement = {
+        type = "function",
+        description = "Enable vertex buffer element (VBO element)",
+        args = "(id: number)",
+        returns = "(boolean)"
+      },
+      
+      rlDisableVertexBufferElement = {
+        type = "function",
+        description = "Disable vertex buffer element (VBO element)",
+        args = "()",
+        returns = "(void)"
+      },
+      
+      rlEnableVertexAttribute = {
+        type = "function",
+        description = "Enable vertex attribute index",
+        args = "(index: number)",
+        returns = "(boolean)"
+      },
+      
+      rlDisableVertexAttribute = {
+        type = "function",
+        description = "Disable vertex attribute index",
+        args = "(index: number)",
+        returns = "(void)"
+      },
+      
+      rlEnableStatePointer = {
+        type = "function",
+        description = "",
+        args = "(vertexAttribType: number, buffer: pointer<void>)",
+        returns = "(boolean)"
+      },
+      
+      rlDisableStatePointer = {
+        type = "function",
+        description = "",
+        args = "(vertexAttribType: number)",
+        returns = "(void)"
+      },
+      
+       DrawMesh = {
+        type = "function",
+        description = "Draw a 3d mesh with material and transform",
+        args = "(mesh: Mesh, material: Material, transform: Matrix)",
+        returns = "(void)"
+      },
+			
+	   DrawMeshInstanced = {
+		type = "function",
+		description = "Draw a 3d mesh with material and transform",
+		args = "(mesh: Mesh, material: Material, transforms: array<Matrix>, count: number)",
+		returns = "(void)"
+	  },
       
       rlUnloadMesh = {
         type = "function",
@@ -5474,6 +6094,13 @@ return {
         returns = "(VrDeviceInfo)"
       },
       
+      VrStereoConfig = {
+        type = "function",
+        description = "Creates VrStereoConfig type",
+        args = "(...)",
+        returns = "(VrStereoConfig)"
+      },
+      
       new = {
         type = "function",
         description = "Same as ffi.new, Creates C type!",
@@ -5504,7 +6131,7 @@ return {
         returns = "(float16)"
       },
       
-			-- For physac.h
+	  -- For physac.h
       PhysicsBody = {
         type = "function",
         description = "Creates PhysicsBody type",

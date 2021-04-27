@@ -20,7 +20,6 @@
 1. Microsoft Windows (32-bit and 64-bit)
 2. Mac (64-bit)
 3. Linux (64-bit)
-4. Android (64-bit), Versions are ARM64 (ARM) and x86_64 (Intel)
 
 ### Example
 
