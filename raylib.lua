@@ -1489,15 +1489,6 @@ typedef struct RenderBatch {
     float currentDepth;         // Current depth value for next draw
 } RenderBatch;
 
-// VR Stereo rendering configuration for simulator
-typedef struct VrStereoConfig {
-    Shader distortionShader;        // VR stereo rendering distortion shader
-    Matrix eyesProjection[2];       // VR stereo rendering eyes projection matrices
-    Matrix eyesViewOffset[2];       // VR stereo rendering eyes view offset matrices
-    int eyeViewportRight[4];        // VR stereo rendering right eye viewport [x, y, w, h]
-    int eyeViewportLeft[4];         // VR stereo rendering left eye viewport [x, y, w, h]
-} VrStereoConfig;
-
 //----------------------------------------------------------------------------------
 // Defines and Macros
 //----------------------------------------------------------------------------------
@@ -1956,7 +1947,7 @@ rl.ColorAlpha      = rl.Fade
 rl.FILTER_POINT    = rl.TEXTURE_FILTER_POINT
 rl.FILTER_BILINEAR = rl.TEXTURE_FILTER_BILINEAR
 rl.MAP_DIFFUSE     = rl.MATERIAL_MAP_DIFFUSE
-rl.PIXELFORMAT_UNCOMPRESSED_R8G8B8A8 = rl.PIXELFORMAT_PIXELFORMAT_UNCOMPRESSED_R8G8B8A8
+rl.UNCOMPRESSED_R8G8B8A8 = rl.PIXELFORMAT_UNCOMPRESSED_R8G8B8A8
 
 -- RLGL stuff
 rl.RL_CULL_DISTANCE_NEAR           = 0.01      -- Default near cull distance
