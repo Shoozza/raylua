@@ -19,6 +19,7 @@ return {
       "libraylib64.dll",
       "libraylib.so",
       "libraylib.dylib",
+      "libraylib_android_arm64.so"
     },
     resources = {
       "raylua.png"

@@ -20,6 +20,7 @@
 1. Microsoft Windows (32-bit and 64-bit)
 2. Mac (64-bit)
 3. Linux (64-bit)
+4. Android (ARM64)
 
 ### Example
 
@@ -50,7 +51,7 @@ For examples that binded see [here](https://github.com/Rabios/raylua/blob/master
 
 ### NOTES
 
-1. This is a direct bindings of the original C version,It implements the same content.
+1. This is a direct bindings of the original C version, It implements the same content.
 2. Hacks and fallbacks of raylib 2 implemented from original C version, raylib 2 functions will still works if you use raylib 3.
 
 > And i didn't copy-pasted from any gist, Even that gist made by Alexander Matz, All bindings were written by me.
